@@ -1,4 +1,4 @@
-package com.dungeonsanddragons;
+package dnd;
 
 public enum Race {
 	DROW,

@@ -1,4 +1,4 @@
-package com.dungeonsanddragons;
+package dnd;
 
 import java.util.Map;
 
