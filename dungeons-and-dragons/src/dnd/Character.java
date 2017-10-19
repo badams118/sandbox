@@ -1,5 +1,6 @@
 package dnd;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Character {
@@ -20,6 +21,7 @@ public class Character {
 		this.level = level;
 		this.armorClass = setArmorClass(characterClass, level);
 		this.hitPoints = setHitPoints(characterClass, level);
+		this.savingThrows = setSavingThrows();
 	}
 	
 	int setArmorClass(CharacterClass characterClass, int level) {
@@ -28,5 +30,9 @@ public class Character {
 	
 	int setHitPoints(CharacterClass characterClass, int level) {
 		return 0;
+	}
+	
+	Map setSavingThrows() {
+		return new HashMap<>();
 	}
 }
