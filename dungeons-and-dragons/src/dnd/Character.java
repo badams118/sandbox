@@ -10,7 +10,7 @@ public class Character {
 	private int level;
 	private int armorClass;
 	private int hitPoints;
-	private Map money;
+	private float goldPieces;
 	private int experience;
 	
 	public Character(String name, Race race, CharacterClass characterClass, int level) {
@@ -20,13 +20,19 @@ public class Character {
 		this.level = level;
 		this.armorClass = setArmorClass(characterClass, level);
 		this.hitPoints = setHitPoints(characterClass, level);
+		this.goldPieces = Money.setMoney(characterClass);
+		this.experience = setExperience(characterClass, level);
 	}
 	
-	int setArmorClass(CharacterClass characterClass, int level) {
+	private int setArmorClass(CharacterClass characterClass, int level) {
 		return 0;
 	}
 	
-	int setHitPoints(CharacterClass characterClass, int level) {
+	private int setHitPoints(CharacterClass characterClass, int level) {
+		return 0;
+	}
+	
+	private int setExperience(CharacterClass characterClass, int level) {
 		return 0;
 	}
 }
