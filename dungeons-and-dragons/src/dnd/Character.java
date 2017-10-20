@@ -10,7 +10,6 @@ public class Character {
 	private int level;
 	private int armorClass;
 	private int hitPoints;
-	private Map savingThrows;
 	private Map money;
 	private int experience;
 	
@@ -21,7 +20,6 @@ public class Character {
 		this.level = level;
 		this.armorClass = setArmorClass(characterClass, level);
 		this.hitPoints = setHitPoints(characterClass, level);
-		this.savingThrows = setSavingThrows();
 	}
 	
 	int setArmorClass(CharacterClass characterClass, int level) {
@@ -30,9 +28,5 @@ public class Character {
 	
 	int setHitPoints(CharacterClass characterClass, int level) {
 		return 0;
-	}
-	
-	Map setSavingThrows() {
-		return new HashMap<>();
 	}
 }
