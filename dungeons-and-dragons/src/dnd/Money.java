@@ -1,7 +1,5 @@
 package dnd;
 
-import java.util.Random;
-
 public enum Money {
 	COPPER,
 	SILVER,
@@ -11,26 +9,25 @@ public enum Money {
 	
 	public static float setMoney(CharacterClass characterClass) {
 		float goldPieces = 0;
-		Random random = new Random();
 		
 		switch (characterClass) {
 		case DRUID: 
 		case CLERIC: 
-			goldPieces = random.nextInt(150) + 30;
+			goldPieces = 90;
 			break;
 		case PALADIN:
 		case ANTI_PALADIN:
 		case RANGER:
 		case FIGHTER:
-			goldPieces = random.nextInt(150) + 50;
+			goldPieces = 100;
 			break;
 		case ILLUSIONIST:
 		case MAGIC_USER:
-			goldPieces = random.nextInt(60) + 20;
+			goldPieces = 40;
 			break;
 		case ASSASSIN:
 		case THIEF:
-			goldPieces = random.nextInt(100) + 20;
+			goldPieces = 60;
 			break;
 		}
 		
