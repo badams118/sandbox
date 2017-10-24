@@ -8,7 +8,7 @@ public class Driver {
 		//boolean x = SavingThrow.checkSavingThrow(CharacterClass.ASSASSIN, 5, SavingThrow.DEATH_MAGIC);
 		//System.out.println(x);
 		
-		PlayerCharacter joe = new PlayerCharacter("Joe", Race.HUMAN, CharacterClass.FIGHTER);
+		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
 		System.out.println(joe.toString());
 		joe.buyWeapon("Long Sword");
 		joe.buyArmor("Chain");
