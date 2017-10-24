@@ -19,10 +19,6 @@ public class Merchantile {
 		armor.add(new Armor("Chain", 75, 5));		
 		armor.add(new Armor("Plate", 400, 3));
 		
-		System.out.println(armor);
-		System.out.println("Index of " + "Chain" + " is " + Integer.toString(armor.indexOf(new Armor("Chain", 0, 0))));
-		System.out.println("Index of " + "Plate" + " is " + Integer.toString(armor.indexOf(new Armor("Plate", 0, 0))));
-		
 		return armor.get(armor.indexOf(new Armor(type, 0, 0)));
 	}
 }

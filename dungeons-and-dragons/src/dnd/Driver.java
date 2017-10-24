@@ -1,18 +1,16 @@
 package dnd;
 
-import dnd.Weapon.TargetSize;
-
 public class Driver {
 
 	public static void main(String[] args) {
-		//boolean x = SavingThrow.checkSavingThrow(CharacterClass.ASSASSIN, 5, SavingThrow.DEATH_MAGIC);
-		//System.out.println(x);
 		
 		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
 		System.out.println(joe.toString());
 		joe.buyWeapon("Long Sword");
 		joe.buyArmor("Chain");
 		System.out.println("\n" + joe.toString());
+		
+		Monster skeleton = new Monster(7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);
 		
 		for (int i = 1; i <= 30; i++) {
 		  joe.strikeMelee(new Object());
