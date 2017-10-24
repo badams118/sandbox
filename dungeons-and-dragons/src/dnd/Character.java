@@ -32,7 +32,11 @@ public class Character {
 	
 	private int setExperience(CharacterClass characterClass, int level) {
 		return 0;
-	}	
+	}
+	
+	public void buyWeapon(String type) {
+		//weapon = 
+	}
 	
 	public String toString() {
 		String characterToString;

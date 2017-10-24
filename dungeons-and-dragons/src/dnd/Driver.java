@@ -10,7 +10,7 @@ public class Driver {
 		//System.out.println(joe.toString());
 
 		Merchantile merchant = new Merchantile();
-		Weapon weapon = merchant.buyWeapon("sword");//new Weapon("sword", 0, 3, 20);
+		Weapon weapon = merchant.buyWeapon("sword");
 		for (int i = 1; i <= 30; i++) {
 		  System.out.print(Integer.toString(weapon.calculateDamage()) + " ");
 		}
