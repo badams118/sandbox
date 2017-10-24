@@ -2,7 +2,7 @@ package dnd;
 
 import dnd.Weapon.TargetSize;
 
-public class Character {
+public class PlayerCharacter {
 	private String name;
 	private Race race;
 	private CharacterClass characterClass;
@@ -14,11 +14,11 @@ public class Character {
 	private Weapon weapon;
 	private Armor armor;
 
-	public Character(String name, Race race, CharacterClass characterClass) {
+	public PlayerCharacter(String name, Race race, CharacterClass characterClass) {
 		this(name, race, characterClass, 1);
 	}
 	
-	public Character(String name, Race race, CharacterClass characterClass, int level) {
+	public PlayerCharacter(String name, Race race, CharacterClass characterClass, int level) {
 		this.name = name;
 		this.race = race;
 		this.characterClass = characterClass;
