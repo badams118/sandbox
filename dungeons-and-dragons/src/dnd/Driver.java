@@ -6,13 +6,12 @@ public class Driver {
 		//boolean x = SavingThrow.checkSavingThrow(CharacterClass.ASSASSIN, 5, SavingThrow.DEATH_MAGIC);
 		//System.out.println(x);
 		
-		//Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
+		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
+		joe.buyWeapon("Long Sword");
 		//System.out.println(joe.toString());
-
-		Merchantile merchant = new Merchantile();
-		Weapon weapon = merchant.buyWeapon("sword");
+		
 		for (int i = 1; i <= 30; i++) {
-		  System.out.print(Integer.toString(weapon.calculateDamage()) + " ");
+		  joe.strikeMelee(new Object());;
 		}
 		
 	}

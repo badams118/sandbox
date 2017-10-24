@@ -35,7 +35,11 @@ public class Character {
 	}
 	
 	public void buyWeapon(String type) {
-		//weapon = 
+		weapon = Merchantile.buyWeapon(type);
+	}
+	
+	public void strikeMelee(Object target) {
+		System.out.print(Integer.toString(weapon.calculateDamage()) + " ");
 	}
 	
 	public String toString() {

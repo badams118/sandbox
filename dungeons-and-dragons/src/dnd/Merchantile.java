@@ -9,7 +9,7 @@ public class Merchantile {
 	public static Weapon buyWeapon(String type) {
 		List<Weapon> weapons = new ArrayList<Weapon>();
 		
-		weapons.add(new Weapon("sword", 0, 1, 8));
+		weapons.add(new Weapon("Long Sword", 0, 1, 8));
 		
 		return weapons.get(weapons.indexOf(new Weapon(type, 0, 0, 0)));
 	}
