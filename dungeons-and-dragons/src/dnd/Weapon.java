@@ -3,22 +3,36 @@ package dnd;
 import java.util.Random;
 
 public class Weapon {
+	public enum TargetSize {SMALL, MEDIUM, LARGE}
+	
 	private String type;
 	private float cost;
-	private int damageLow;
-	private int damageHigh;
+	private int damageLowVsSmallMedium;
+	private int damageHighVsSmallMedium;
+	private int damageLowVsLarge;
+	private int damageHighVsLarge;
 	
-	public Weapon(String type, float cost, int damageLow, int damageHigh) {
+	public Weapon(String type, float cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge) {
 		this.type = type;
 		this.cost = cost;
-		this.damageLow = damageLow;
-		this.damageHigh = damageHigh;
+		this.damageLowVsSmallMedium = damageLowVsSmallMedium;
+		this.damageHighVsSmallMedium = damageHighVsSmallMedium;
+		this.damageLowVsLarge = damageLowVsLarge;
+		this.damageHighVsLarge = damageHighVsLarge;
 	}
 	
-	public int calculateDamage() {		
+	public int calculateDamage() {
+		return calculateDamage(TargetSize.MEDIUM);
+	}
+	
+	public int calculateDamage(TargetSize targetSize) {		
 		int damage;
 		
-		damage = new Random().nextInt(damageHigh-damageLow + 1) + damageLow;
+		if (targetSize == TargetSize.SMALL || targetSize == TargetSize.MEDIUM) {
+			damage = new Random().nextInt(damageHighVsSmallMedium - damageLowVsSmallMedium + 1) + damageLowVsSmallMedium;
+		} else {
+			damage = new Random().nextInt(damageHighVsLarge - damageLowVsLarge + 1) + damageLowVsLarge;
+		}
 		
 		return damage;
 	}

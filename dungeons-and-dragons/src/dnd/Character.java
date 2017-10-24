@@ -1,5 +1,7 @@
 package dnd;
 
+import dnd.Weapon.TargetSize;
+
 public class Character {
 	private String name;
 	private Race race;
@@ -10,6 +12,7 @@ public class Character {
 	private float goldPieces;
 	private int experience;
 	private Weapon weapon;
+	private Armor armor;
 
 	public Character(String name, Race race, CharacterClass characterClass) {
 		this(name, race, characterClass, 1);
@@ -20,14 +23,10 @@ public class Character {
 		this.race = race;
 		this.characterClass = characterClass;
 		this.level = level;
-		this.armorClass = setArmorClass(characterClass, level);
+		this.armorClass = 10;
 		this.hitPoints = CharacterClass.getHitPoints(characterClass, level);
 		this.goldPieces = Money.setMoney(characterClass);
 		this.experience = setExperience(characterClass, level);
-	}
-	
-	private int setArmorClass(CharacterClass characterClass, int level) {
-		return 0;
 	}
 	
 	private int setExperience(CharacterClass characterClass, int level) {
@@ -35,10 +34,19 @@ public class Character {
 	}
 	
 	public void buyWeapon(String type) {
-		weapon = Merchantile.buyWeapon(type);
+		this.weapon = Merchantile.buyWeapon(type);
+	}
+	
+	public void buyArmor(String type) {
+		this.armor = Merchantile.buyArmor(type);
+		this.armorClass = armor.getArmorClass();
 	}
 	
 	public void strikeMelee(Object target) {
+		strikeMelee(target, TargetSize.MEDIUM);
+	}
+	
+	public void strikeMelee(Object target, TargetSize targetSize) {
 		System.out.print(Integer.toString(weapon.calculateDamage()) + " ");
 	}
 	

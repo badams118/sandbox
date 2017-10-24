@@ -1,5 +1,7 @@
 package dnd;
 
+import dnd.Weapon.TargetSize;
+
 public class Driver {
 
 	public static void main(String[] args) {
@@ -8,10 +10,11 @@ public class Driver {
 		
 		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
 		joe.buyWeapon("Long Sword");
-		//System.out.println(joe.toString());
+		joe.buyArmor("Chain");
+		System.out.println(joe.toString());
 		
 		for (int i = 1; i <= 30; i++) {
-		  joe.strikeMelee(new Object());;
+		  joe.strikeMelee(new Object());
 		}
 		
 	}
