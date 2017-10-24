@@ -9,9 +9,10 @@ public class Driver {
 		//System.out.println(x);
 		
 		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
+		System.out.println(joe.toString());
 		joe.buyWeapon("Long Sword");
 		joe.buyArmor("Chain");
-		System.out.println(joe.toString());
+		System.out.println("\n" + joe.toString());
 		
 		for (int i = 1; i <= 30; i++) {
 		  joe.strikeMelee(new Object());

@@ -11,14 +11,23 @@ public class Armor {
 		this.armorClass = armorClass;
 	}
 	
+	public String getType() {
+		return this.type;
+	}
+
+	public float getCost() {
+		return this.cost;
+	}
+	
 	public int getArmorClass() {
 		return this.armorClass;
 	}
 	
-	public boolean equals(Object armor) {
+	public boolean equals(Object object) {
 		boolean isEquals = false;
+		Armor armor = (Armor) object;
 		
-		if (type.equals(this.type)) {
+		if (type.equals(armor.getType())) {
 			isEquals = true;
 		} 
 		

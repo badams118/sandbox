@@ -41,10 +41,15 @@ public class Weapon {
 		return type;
 	}
 	
-	public boolean equals(Object weapon) {
+	public float getCost() {
+		return cost;
+	}
+	
+	public boolean equals(Object object) {
 		boolean isEquals = false;
+		Weapon weapon = (Weapon) object;
 		
-		if (type.equals(this.type)) {
+		if (type.equals(weapon.getType())) {
 			isEquals = true;
 		} 
 		

@@ -34,12 +34,24 @@ public class Character {
 	}
 	
 	public void buyWeapon(String type) {
-		this.weapon = Merchantile.buyWeapon(type);
+		Weapon weapon = Merchantile.getWeapon(type);
+		if (this.goldPieces >= weapon.getCost()) {
+			this.weapon = weapon;
+			this.goldPieces -= weapon.getCost();
+		} else {
+			System.out.println(this.name + " does not have enough gold to buy a(n) " + type);
+		}
 	}
 	
 	public void buyArmor(String type) {
-		this.armor = Merchantile.buyArmor(type);
-		this.armorClass = armor.getArmorClass();
+		Armor armor = Merchantile.getArmor(type);
+		if (this.goldPieces >= armor.getCost()) {
+			this.armor = armor;
+			this.armorClass = armor.getArmorClass();
+			this.goldPieces -= armor.getCost();
+		} else {
+			System.out.println(this.name + " does not have enough gold to buy " + type);
+		}
 	}
 	
 	public void strikeMelee(Object target) {
