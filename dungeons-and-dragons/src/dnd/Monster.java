@@ -28,4 +28,14 @@ public class Monster {
 	public void strikeMelee(Object target) {
 		int damage = new Random().nextInt(damageHigh - damageLow + 1) + damageLow;
 	}
+	
+	public String toString() {
+		String monsterToString;
+		
+		monsterToString = "Armor Class: " + Integer.toString(this.armorClass) + "\n";
+		monsterToString += "Hit Points: " + Integer.toString(this.hitPoints) + "\n";
+		monsterToString += "Damage: " + Integer.toString(this.damageLow) + "-" + Integer.toString(this.damageHigh) + "\n";;
+		
+		return monsterToString;
+	}
 }
