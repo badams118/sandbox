@@ -14,7 +14,7 @@ public class Driver {
 		System.out.println(skeleton.toString());
 		
 		for (int i = 1; i <= 30; i++) {
-		  joe.strikeMelee(new Object());
+		  joe.strikeMelee(skeleton);
 		}
 		
 	}

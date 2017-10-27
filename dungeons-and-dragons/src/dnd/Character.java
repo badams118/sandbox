@@ -2,13 +2,9 @@ package dnd;
 
 import dnd.Weapon.TargetSize;
 
-public class Character {
+public class Character extends MobileObject {
 	private String name;
 	private Race race;
-	private CharacterClass characterClass;
-	private int level;
-	private int armorClass;
-	private int hitPoints;
 	private float goldPieces;
 	private int experience;
 	private Weapon weapon;
@@ -19,12 +15,9 @@ public class Character {
 	}
 	
 	public Character(String name, Race race, CharacterClass characterClass, int level) {
+		super(10, CharacterClass.getHitPoints(characterClass, level), characterClass, level);
 		this.name = name;
 		this.race = race;
-		this.characterClass = characterClass;
-		this.level = level;
-		this.armorClass = 10;
-		this.hitPoints = CharacterClass.getHitPoints(characterClass, level);
 		this.goldPieces = Money.setMoney(characterClass);
 		this.experience = setExperience(characterClass, level);
 	}
@@ -47,19 +40,21 @@ public class Character {
 		Armor armor = Merchantile.getArmor(type);
 		if (this.goldPieces >= armor.getCost()) {
 			this.armor = armor;
-			this.armorClass = armor.getArmorClass();
+			setArmorClass(armor.getArmorClass());
 			this.goldPieces -= armor.getCost();
 		} else {
 			System.out.println(this.name + " does not have enough gold to buy " + type);
 		}
 	}
 	
-	public void strikeMelee(Object target) {
+	public void strikeMelee(MobileObject target) {
 		strikeMelee(target, TargetSize.MEDIUM);
 	}
 	
-	public void strikeMelee(Object target, TargetSize targetSize) {
+	public void strikeMelee(MobileObject target, TargetSize targetSize) {
+		int damage = weapon.calculateDamage();
 		System.out.print(Integer.toString(weapon.calculateDamage()) + " ");
+		target.updateHitPoints(-1 * damage);
 	}
 	
 	public String toString() {
@@ -67,10 +62,10 @@ public class Character {
 		
 		characterToString = "Character name: " + name + "\n";
 		characterToString += "Race: " + this.race.toString() + "\n";
-		characterToString += "Class: " + this.characterClass.toString() + "\n";
-		characterToString += "Level: " + Integer.toString(this.level) + "\n";
-		characterToString += "Armor class: " + Integer.toString(this.armorClass) + "\n";
-		characterToString += "Hit Points: " + Integer.toString(this.hitPoints) + "\n";
+		characterToString += "Class: " + getCharacterClass().toString() + "\n";
+		characterToString += "Level: " + Integer.toString(getLevel()) + "\n";
+		characterToString += "Armor class: " + Integer.toString(getArmorClass()) + "\n";
+		characterToString += "Hit Points: " + Integer.toString(getHitPoints()) + "\n";
 		characterToString += "Experience: " + Integer.toString(this.experience) + "\n";
 		characterToString += "Money: " + Float.toString(goldPieces) + "\n";
 		
