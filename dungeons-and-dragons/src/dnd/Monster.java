@@ -4,24 +4,17 @@ import java.util.Random;
 
 import dnd.Weapon.TargetSize;
 
-public class Monster {
-	private int armorClass;
-	private int hitPoints;
+public class Monster extends MobileObject {
 	private int attacks;
 	private int damageLow;
 	private int damageHigh;
-	private CharacterClass characterClass;
-	private int level;
 	private int morale;
 	
 	public Monster(int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
 			CharacterClass characterClass, int level, int morale) {
-		this.armorClass = armorClass;
-		this.hitPoints = 4 * hitDice + hitDiceModifier;
+		super(armorClass, 4 * hitDice + hitDiceModifier, characterClass, level);
 		this.damageLow = damageLow;
 		this.damageHigh = damageHigh;
-		this.characterClass = characterClass;
-		this.level = level;
 		this.morale = morale;
 	}
 	
@@ -32,8 +25,8 @@ public class Monster {
 	public String toString() {
 		String monsterToString;
 		
-		monsterToString = "Armor Class: " + Integer.toString(this.armorClass) + "\n";
-		monsterToString += "Hit Points: " + Integer.toString(this.hitPoints) + "\n";
+		monsterToString = "Armor Class: " + Integer.toString(getArmorClass()) + "\n";
+		monsterToString += "Hit Points: " + Integer.toString(getHitPoints()) + "\n";
 		monsterToString += "Damage: " + Integer.toString(this.damageLow) + "-" + Integer.toString(this.damageHigh) + "\n";;
 		
 		return monsterToString;
