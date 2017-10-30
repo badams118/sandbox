@@ -50,6 +50,11 @@ public enum CharacterClass {
 		public String toString() {
 			return "Assassin";
 		}
+	},
+	NONE {
+		public String toString() {
+			return "None";
+		}
 	};
 	
 	public static int getHitPoints(CharacterClass characterClass, int level) {

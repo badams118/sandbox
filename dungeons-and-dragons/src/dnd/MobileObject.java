@@ -7,6 +7,7 @@ public abstract class MobileObject {
 	private int hitPoints;
 	private CharacterClass characterClass;
 	private int level;
+	private int[][] hitMatrix;
 	
 	public MobileObject(int armorClass, int hitPoints, CharacterClass characterClass, int level) {
 		this.armorClass = armorClass;
@@ -21,6 +22,10 @@ public abstract class MobileObject {
 	
 	public int getArmorClass() {
 		return armorClass;
+	}
+	
+	private void setHitArray() {
+		this.hitMatrix = CombatMatrix.getHitMatrix(this.characterClass, this.level);
 	}
 	
 	public int strikeMelee(MobileObject target, int damageLow, int damageHigh) {
