@@ -1,5 +1,7 @@
 package dnd;
 
+import java.util.Random;
+
 public abstract class MobileObject {
 	private int armorClass;
 	private int hitPoints;
@@ -19,6 +21,12 @@ public abstract class MobileObject {
 	
 	public int getArmorClass() {
 		return armorClass;
+	}
+	
+	public int strikeMelee(MobileObject target, int damageLow, int damageHigh) {
+		int damage = new Random().nextInt(damageHigh - damageLow + 1) + damageLow;
+		target.updateHitPoints(-damage);
+		return damage;
 	}
 	
 	public void updateHitPoints(int value) {

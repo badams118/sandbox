@@ -13,10 +13,20 @@ public class Driver {
 		Monster skeleton = new Monster("skeleton", 7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);
 		System.out.println(skeleton.toString());
 		
-		for (int i = 1; i <= 30; i++) {
-			joe.strikeMelee(skeleton);
+		while (true) {
+			System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
+					Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()));
 			if (skeleton.getHitPoints() <= 0) {
-				System.out.println("The " + skeleton.getType() + " has died.");
+				System.out.println(skeleton.getType() + " has died.");
+				break;
+			}
+			
+			System.out.println(skeleton.getType() + " strikes " + joe.getName() + " for " + 
+					Integer.toString(skeleton.strikeMelee(joe)) + " damage.");
+			System.out.println(joe.getName() + " hit points: " + Integer.toString(joe.getHitPoints()));
+			if (joe.getHitPoints() <= 0) {
+				System.out.println(joe.getName() + " has died.");
 				break;
 			}
 		}

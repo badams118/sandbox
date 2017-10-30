@@ -20,18 +20,34 @@ public class Weapon {
 		this.damageLowVsLarge = damageLowVsLarge;
 		this.damageHighVsLarge = damageHighVsLarge;
 	}
-	
-	public int calculateDamage() {
-		return calculateDamage(TargetSize.MEDIUM);
+
+	public int getDamageLow() {
+		return this.damageLowVsSmallMedium;
 	}
 	
-	public int calculateDamage(TargetSize targetSize) {		
+	public int getDamageHigh() {
+		return this.damageLowVsSmallMedium;
+	}
+
+	public int getDamageLow(TargetSize targetSize) {
 		int damage;
 		
-		if (targetSize == TargetSize.SMALL || targetSize == TargetSize.MEDIUM) {
-			damage = new Random().nextInt(damageHighVsSmallMedium - damageLowVsSmallMedium + 1) + damageLowVsSmallMedium;
+		if (targetSize == TargetSize.LARGE) {
+			damage = this.damageLowVsLarge;
 		} else {
-			damage = new Random().nextInt(damageHighVsLarge - damageLowVsLarge + 1) + damageLowVsLarge;
+			damage = this.damageLowVsSmallMedium;
+		}
+		
+		return damage;
+	}
+	
+	public int getDamageHigh(TargetSize targetSize) {
+		int damage;
+		
+		if (targetSize == TargetSize.LARGE) {
+			damage = this.damageHighVsLarge;
+		} else {
+			damage = this.damageHighVsSmallMedium;
 		}
 		
 		return damage;

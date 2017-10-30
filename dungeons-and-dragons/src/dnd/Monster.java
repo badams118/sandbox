@@ -20,8 +20,8 @@ public class Monster extends MobileObject {
 		this.morale = morale;
 	}
 	
-	public void strikeMelee(Object target) {
-		int damage = new Random().nextInt(damageHigh - damageLow + 1) + damageLow;
+	public int strikeMelee(MobileObject target) {
+		return super.strikeMelee(target, this.damageLow, this.damageHigh);
 	}
 	
 	public String getType() {

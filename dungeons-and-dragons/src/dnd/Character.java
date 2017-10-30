@@ -22,6 +22,10 @@ public class Character extends MobileObject {
 		this.experience = setExperience(characterClass, level);
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
 	private int setExperience(CharacterClass characterClass, int level) {
 		return 0;
 	}
@@ -47,14 +51,12 @@ public class Character extends MobileObject {
 		}
 	}
 	
-	public void strikeMelee(MobileObject target) {
-		strikeMelee(target, TargetSize.MEDIUM);
+	public int strikeMelee(MobileObject target) {
+		return strikeMelee(target, TargetSize.MEDIUM);
 	}
 	
-	public void strikeMelee(MobileObject target, TargetSize targetSize) {
-		int damage = weapon.calculateDamage();
-		System.out.print(Integer.toString(weapon.calculateDamage()) + " ");
-		target.updateHitPoints(-1 * damage);
+	public int strikeMelee(MobileObject target, TargetSize targetSize) {
+		return super.strikeMelee(target, this.weapon.getDamageLow(targetSize), this.weapon.getDamageHigh(targetSize));
 	}
 	
 	public String toString() {
