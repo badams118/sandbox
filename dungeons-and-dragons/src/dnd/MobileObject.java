@@ -17,6 +17,14 @@ public abstract class MobileObject {
 		this.hitMatrix = CombatMatrix.getHitMatrix(characterClass, level);
 	}
 	
+	public MobileObject(int armorClass, int hitDice, int hitDiceModifier, int hitPoints, CharacterClass characterClass, int level) {
+		this.armorClass = armorClass;
+		this.hitPoints = hitPoints;
+		this.characterClass = CharacterClass.NONE;
+		this.level = level;
+		this.hitMatrix = CombatMatrix.getHitMatrix(CharacterClass.NONE, hitDice);
+	}
+	
 	public void setArmorClass(int armorClass) {
 		this.armorClass = armorClass;
 	}
@@ -28,7 +36,7 @@ public abstract class MobileObject {
 	public int strikeMelee(MobileObject target, int damageLow, int damageHigh) {
 		int damage = 0;
 		
-		if (isHit()) {			
+		if (this.isHit(target)) {			
 			damage = new Random().nextInt(damageHigh - damageLow + 1) + damageLow;
 			target.updateHitPoints(-damage);
 		}
@@ -36,15 +44,16 @@ public abstract class MobileObject {
 		return damage;
 	}
 	
-	private boolean isHit() {
+	private boolean isHit(MobileObject target) {
 		Random random = new Random();
 		int roll = random.nextInt(20) + 1;
 		boolean isHit;
 		
-	//	System.out.println("Roll " + Integer.toString(roll));
-	//	System.out.println("To hit " + Integer.toString(this.hitMatrix[this.armorClass + 10][0]));
+		System.out.println("Roll " + Integer.toString(roll));
+		System.out.println("Target armor class: " + this.hitMatrix[target.armorClass + 10][0]);
+		System.out.println("Attacker to hit: " + Integer.toString(this.hitMatrix[target.armorClass + 10][1]));
 		
-		if (this.hitMatrix[this.armorClass + 10][0] >= roll) {
+		if (roll >= this.hitMatrix[target.armorClass + 10][1]) {
 			isHit = true;
 		} else {
 			isHit = false;

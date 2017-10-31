@@ -78,6 +78,7 @@ public class CombatMatrix {
 						{ 10, 11}};
 				hitMatrix = tempMatrix;
 			} else if (level <= 2) {
+				System.out.println("fighter 1 hit matrix");
 				int tempMatrix[][] = {
 						{-10, 25},
 						{ -9, 24},
@@ -324,6 +325,7 @@ public class CombatMatrix {
 						{ 10, 10}};
 				hitMatrix = tempMatrix;
 			} else if (level == 1) {
+				System.out.println("skel 1 hit matrix");
 				int tempMatrix[][] = {
 						{-10, 24},
 						{ -9, 23},

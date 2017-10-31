@@ -13,7 +13,7 @@ public class Monster extends MobileObject {
 	
 	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
 			CharacterClass characterClass, int level, int morale) {
-		super(armorClass, 4 * hitDice + hitDiceModifier, characterClass, level);
+		super(armorClass, hitDice, hitDiceModifier, 4 * hitDice + hitDiceModifier, characterClass, level);
 		this.type = type;
 		this.damageLow = damageLow;
 		this.damageHigh = damageHigh;
