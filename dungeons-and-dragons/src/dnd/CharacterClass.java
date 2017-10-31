@@ -31,6 +31,11 @@ public enum CharacterClass {
 			return "Ranger";
 		}
 	},
+	BARD {
+		public String toString() {
+			return "Bard";
+		}
+	},
 	MAGIC_USER {
 		public String toString() {
 			return "Magic User";

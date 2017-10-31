@@ -15,6 +15,20 @@ public class CombatMatrix {
 				hitMatrix = tempMatrix;
 			}
 			break;
+		case MAGIC_USER:
+		case ILLUSIONIST:
+			break;
+		case FIGHTER:
+		case PALADIN:
+		case ANTI_PALADIN:
+		case RANGER:
+		case BARD:
+			break;
+		case THIEF:
+		case ASSASSIN:
+			break;
+		default:
+			break;
 		}
 		
 		return hitMatrix;
