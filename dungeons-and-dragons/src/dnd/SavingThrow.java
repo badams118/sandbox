@@ -119,6 +119,7 @@ public enum SavingThrow {
 		case PALADIN:
 		case ANTI_PALADIN:
 		case RANGER:
+		case BARD:
 		case FIGHTER:
 			switch (attack) {
 			case PARALYZATION:
