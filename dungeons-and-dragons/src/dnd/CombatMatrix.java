@@ -12,14 +12,22 @@ public class CombatMatrix {
 		
 		return hitMatrix;
 	}
+
+	public static int[][] getHitMatrix(CharacterClass characterClass, int hdLevel) { 
+		int[][] hitMatrix = new int[21][2];
+		
+		hitMatrix = getHitMatrix(CharacterClass.FIGHTER, hdLevel, 0);
+		
+		return hitMatrix;
+	}
 	
-	public static int[][] getHitMatrix(CharacterClass characterClass, int level) { 
+	public static int[][] getHitMatrix(CharacterClass characterClass, int hdLevel, int hdModifier) { 
 		int[][] hitMatrix = new int[21][2];
 		
 		switch (characterClass) {
 		case CLERIC:
 		case DRUID:
-			if (level <= 3) {
+			if (hdLevel <= 3) {
 				int tempMatrix[][] = {
 						{-10, 25},
 						{ -9, 24},
@@ -43,7 +51,7 @@ public class CombatMatrix {
 						{  9, 11},
 						{ 10, 10}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 6) {
+			} else if (hdLevel <= 6) {
 				int tempMatrix[][] = {
 						{-10, 23},
 						{ -9, 22},
@@ -67,7 +75,7 @@ public class CombatMatrix {
 						{  9,  9},
 						{ 10,  8}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 9) {
+			} else if (hdLevel <= 9) {
 				int tempMatrix[][] = {
 						{-10, 21},
 						{ -9, 20},
@@ -91,7 +99,7 @@ public class CombatMatrix {
 						{  9,  7},
 						{ 10,  6}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 12) {
+			} else if (hdLevel <= 12) {
 				int tempMatrix[][] = {
 						{-10, 20},
 						{ -9, 20},
@@ -115,7 +123,7 @@ public class CombatMatrix {
 						{  9,  5},
 						{ 10,  4}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 15) {
+			} else if (hdLevel <= 15) {
 				int tempMatrix[][] = {
 						{-10, 20},
 						{ -9, 20},
@@ -139,7 +147,7 @@ public class CombatMatrix {
 						{  9,  3},
 						{ 10,  2}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 18) {
+			} else if (hdLevel <= 18) {
 				int tempMatrix[][] = {
 						{-10, 20},
 						{ -9, 19},
@@ -163,7 +171,7 @@ public class CombatMatrix {
 						{  9,  1},
 						{ 10,  0}};
 				hitMatrix = tempMatrix;
-			} else if (level >= 19) {
+			} else if (hdLevel >= 19) {
 				int tempMatrix[][] = {
 						{-10, 19},
 						{ -9, 18},
@@ -191,13 +199,7 @@ public class CombatMatrix {
 			break;
 		case MAGIC_USER:
 		case ILLUSIONIST:
-			break;
-		case FIGHTER:
-		case PALADIN:
-		case ANTI_PALADIN:
-		case RANGER:
-		case BARD:
-			if (level == 0) {
+			if (hdLevel < 5) {
 				int tempMatrix[][] = {
 						{-10, 26},
 						{ -9, 25},
@@ -221,8 +223,134 @@ public class CombatMatrix {
 						{  9, 12},
 						{ 10, 11}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 2) {
-				System.out.println("fighter 1 hit matrix");
+			} else if (hdLevel < 10) {
+				int tempMatrix[][] = {
+						{-10, 24},
+						{ -9, 23},
+						{ -8, 22},
+						{ -7, 21},
+						{ -6, 20},
+						{ -5, 20},
+						{ -4, 20},
+						{ -3, 20},
+						{ -2, 20},
+						{ -1, 20},
+						{  0, 19},
+						{  1, 18},
+						{  2, 17},
+						{  3, 16},
+						{  4, 15},
+						{  5, 14},
+						{  6, 13},
+						{  7, 12},
+						{  8, 11},
+						{  9, 10},
+						{ 10,  9}};
+				hitMatrix = tempMatrix;
+			} else if (hdLevel < 15) {
+				int tempMatrix[][] = {
+						{-10, 21},
+						{ -9, 20},
+						{ -8, 20},
+						{ -7, 20},
+						{ -6, 20},
+						{ -5, 20},
+						{ -4, 20},
+						{ -3, 19},
+						{ -2, 18},
+						{ -1, 17},
+						{  0, 16},
+						{  1, 15},
+						{  2, 14},
+						{  3, 13},
+						{  4, 12},
+						{  5, 11},
+						{  6, 10},
+						{  7,  9},
+						{  8,  8},
+						{  9,  7},
+						{ 10,  6}};
+				hitMatrix = tempMatrix;
+			} else if (hdLevel < 20) {
+				int tempMatrix[][] = {
+						{-10, 20},
+						{ -9, 20},
+						{ -8, 20},
+						{ -7, 20},
+						{ -6, 19},
+						{ -5, 18},
+						{ -4, 17},
+						{ -3, 16},
+						{ -2, 15},
+						{ -1, 14},
+						{  0, 13},
+						{  1, 12},
+						{  2, 11},
+						{  3, 10},
+						{  4,  9},
+						{  5,  8},
+						{  6,  7},
+						{  7,  6},
+						{  8,  5},
+						{  9,  4},
+						{ 10,  3}};
+				hitMatrix = tempMatrix;
+			} else if (hdLevel >= 21) {
+				int tempMatrix[][] = {
+						{-10, 20},
+						{ -9, 20},
+						{ -8, 19},
+						{ -7, 18},
+						{ -6, 17},
+						{ -5, 16},
+						{ -4, 15},
+						{ -3, 14},
+						{ -2, 13},
+						{ -1, 12},
+						{  0, 11},
+						{  1, 10},
+						{  2,  9},
+						{  3,  8},
+						{  4,  7},
+						{  5,  6},
+						{  6,  5},
+						{  7,  4},
+						{  8,  3},
+						{  9,  2},
+						{ 10,  1}};
+				hitMatrix = tempMatrix;
+			}
+			break;
+		case FIGHTER:
+		case PALADIN:
+		case ANTI_PALADIN:
+		case RANGER:
+		case BARD:
+			if (hdLevel == 0) {
+				int tempMatrix[][] = {
+						{-10, 26},
+						{ -9, 25},
+						{ -8, 24},
+						{ -7, 23},
+						{ -6, 22},
+						{ -5, 21},
+						{ -4, 20},
+						{ -3, 20},
+						{ -2, 20},
+						{ -1, 20},
+						{  0, 20},
+						{  1, 20},
+						{  2, 19},
+						{  3, 18},
+						{  4, 17},
+						{  5, 16},
+						{  6, 15},
+						{  7, 14},
+						{  8, 13},
+						{  9, 12},
+						{ 10, 11}};
+				hitMatrix = tempMatrix;
+			} else if (hdLevel <= 2) {
 				int tempMatrix[][] = {
 						{-10, 25},
 						{ -9, 24},
@@ -246,7 +374,7 @@ public class CombatMatrix {
 						{  9, 11},
 						{ 10, 10}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 4) {
+			} else if (hdLevel <= 4) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -270,7 +398,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 6) {
+			} else if (hdLevel <= 6) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -294,7 +422,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 8) {
+			} else if (hdLevel <= 8) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -318,7 +446,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 10) {
+			} else if (hdLevel <= 10) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -342,7 +470,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 12) {
+			} else if (hdLevel <= 12) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -366,7 +494,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 14) {
+			} else if (hdLevel <= 14) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -390,7 +518,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 16) {
+			} else if (hdLevel <= 16) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -414,7 +542,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level >= 17) {
+			} else if (hdLevel >= 17) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -444,7 +572,7 @@ public class CombatMatrix {
 		case ASSASSIN:
 			break;
 		default: //Attack matrix for monsters
-			if (level < 1) { //level ~ hit dice
+			if (hdLevel == 1 || hdModifier < 0) {
 				int tempMatrix[][] = {
 						{-10, 25},
 						{ -9, 24},
@@ -468,8 +596,7 @@ public class CombatMatrix {
 						{  9, 11},
 						{ 10, 10}};
 				hitMatrix = tempMatrix;
-			} else if (level == 1) {
-				System.out.println("skel 1 hit matrix");
+			} else if (hdLevel == 1 || hdModifier == 0) {
 				int tempMatrix[][] = {
 						{-10, 24},
 						{ -9, 23},
@@ -493,7 +620,31 @@ public class CombatMatrix {
 						{  9, 10},
 						{ 10,  9}};
 				hitMatrix = tempMatrix;
-			} else if (level <= 3) {
+			} else if (hdLevel == 1 || hdModifier > 0) {
+				int tempMatrix[][] = {
+						{-10, 23},
+						{ -9, 22},
+						{ -8, 21},
+						{ -7, 20},
+						{ -6, 20},
+						{ -5, 20},
+						{ -4, 20},
+						{ -3, 20},
+						{ -2, 20},
+						{ -1, 19},
+						{  0, 18},
+						{  1, 17},
+						{  2, 16},
+						{  3, 15},
+						{  4, 14},
+						{  5, 13},
+						{  6, 12},
+						{  7, 11},
+						{  8, 10},
+						{  9,  9},
+						{ 10,  8}};
+				hitMatrix = tempMatrix;
+			} else if (hdLevel <= 3) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -517,7 +668,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 5) {
+			} else if (hdLevel <= 5) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -541,7 +692,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 7) {
+			} else if (hdLevel <= 7) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -565,7 +716,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 9) {
+			} else if (hdLevel <= 9) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -589,7 +740,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 11) {
+			} else if (hdLevel <= 11) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -613,7 +764,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 13) {
+			} else if (hdLevel <= 13) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -637,7 +788,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level <= 15) {
+			} else if (hdLevel <= 15) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },
@@ -661,7 +812,7 @@ public class CombatMatrix {
 						{  9, },
 						{ 10, }};
 				hitMatrix = tempMatrix;
-			} else if (level >= 16) {
+			} else if (hdLevel >= 16) {
 				int tempMatrix[][] = {
 						{-10, },
 						{ -9, },

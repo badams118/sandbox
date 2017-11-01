@@ -49,7 +49,7 @@ public abstract class MobileObject {
 		int roll = random.nextInt(20) + 1;
 		boolean isHit;
 		
-		System.out.println("Roll " + Integer.toString(roll));
+		System.out.println("Attack roll " + Integer.toString(roll));
 		System.out.println("Target armor class: " + this.hitMatrix[target.armorClass + 10][0]);
 		System.out.println("Attacker to hit: " + Integer.toString(this.hitMatrix[target.armorClass + 10][1]));
 		
