@@ -9,6 +9,7 @@ public class Merchantile {
 		List<Weapon> weapons = new ArrayList<Weapon>();
 		
 		weapons.add(new Weapon("Long Sword", 15, 1, 8, 1, 12));
+		weapons.add(new Weapon("Unholy Reaver", 0, 0, 0, 0, 0, 5));
 		
 		return weapons.get(weapons.indexOf(new Weapon(type, 0, 0, 0, 0, 0)));
 	}

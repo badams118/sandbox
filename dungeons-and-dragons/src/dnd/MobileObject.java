@@ -34,10 +34,14 @@ public abstract class MobileObject {
 	}
 	
 	public int strikeMelee(MobileObject target, int damageLow, int damageHigh) {
+		return strikeMelee(target, damageLow, damageHigh, 0);
+	}
+	
+	public int strikeMelee(MobileObject target, int damageLow, int damageHigh, int damageBonus) {
 		int damage = 0;
 		
 		if (this.isHit(target)) {			
-			damage = new Random().nextInt(damageHigh - damageLow + 1) + damageLow;
+			damage = new Random().nextInt(damageHigh - damageLow + 1) + damageLow + damageBonus;
 			target.updateHitPoints(-damage);
 		}
 		

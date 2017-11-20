@@ -11,14 +11,21 @@ public class Weapon {
 	private int damageHighVsSmallMedium;
 	private int damageLowVsLarge;
 	private int damageHighVsLarge;
-	
+	private int damageBonus;
+
 	public Weapon(String type, float cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge) {
+		this(type, cost, damageLowVsSmallMedium, damageHighVsSmallMedium, damageLowVsLarge, damageHighVsLarge, 0);
+	}
+	
+	public Weapon(String type, float cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge,
+			int damageBonus) {
 		this.type = type;
 		this.cost = cost;
 		this.damageLowVsSmallMedium = damageLowVsSmallMedium;
 		this.damageHighVsSmallMedium = damageHighVsSmallMedium;
 		this.damageLowVsLarge = damageLowVsLarge;
 		this.damageHighVsLarge = damageHighVsLarge;
+		this.damageBonus = damageBonus;
 	}
 
 	public int getDamageLow() {
@@ -51,6 +58,10 @@ public class Weapon {
 		}
 		
 		return damage;
+	}
+	
+	public int getDamageBonus() {
+		return this.damageBonus;
 	}
 	
 	public String getType() {

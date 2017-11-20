@@ -56,7 +56,7 @@ public class Character extends MobileObject {
 	}
 	
 	public int strikeMelee(MobileObject target, TargetSize targetSize) {
-		return super.strikeMelee(target, this.weapon.getDamageLow(targetSize), this.weapon.getDamageHigh(targetSize));
+		return super.strikeMelee(target, this.weapon.getDamageLow(targetSize), this.weapon.getDamageHigh(targetSize), this.weapon.getDamageBonus());
 	}
 	
 	public String toString() {
