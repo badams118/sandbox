@@ -6,9 +6,9 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
+		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
 		System.out.println(joe.toString());
-		joe.buyWeapon("Long Sword");
+		joe.buyWeapon("Unholy Reaver Long Sword");
 		joe.buyArmor("Chain");
 		System.out.println(joe.toString());
 		

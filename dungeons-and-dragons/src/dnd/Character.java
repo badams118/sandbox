@@ -9,6 +9,7 @@ public class Character extends MobileObject {
 	private int experience;
 	private Weapon weapon;
 	private Armor armor;
+	private boolean shield;
 
 	public Character(String name, Race race, CharacterClass characterClass) {
 		this(name, race, characterClass, 1);

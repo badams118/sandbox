@@ -18,6 +18,11 @@ public enum SavingThrow {
 		boolean isSaved = false;
 		
 		int roll = new Random().nextInt(20) + 1;
+		
+		if (characterClass == CharacterClass.ANTI_PALADIN) {
+			roll = roll + 2;
+		}
+		
 		System.out.println("Saving throw roll: " + roll);
 				
 		switch (characterClass) {
