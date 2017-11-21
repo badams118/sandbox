@@ -20,7 +20,7 @@ public class Driver {
 		System.out.println(skeleton.toString());
 		
         try {   
-            FileOutputStream file = new FileOutputStream("joe.ser");
+            FileOutputStream file = new FileOutputStream("/tmp/joe.ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
              
             out.writeObject(joe);
