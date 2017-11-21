@@ -1,5 +1,8 @@
 package dnd;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 
 public class Driver {
@@ -15,6 +18,20 @@ public class Driver {
 		
 		Monster skeleton = new Monster("skeleton", 7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);
 		System.out.println(skeleton.toString());
+		
+        try {   
+            FileOutputStream file = new FileOutputStream("joe.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+             
+            out.writeObject(joe);
+             
+            out.close();
+            file.close();
+             
+            System.out.println("Object has been serialized");
+        } catch(IOException ex) {
+            System.out.println("IOException is caught");
+        }
 		
 		if (new Random().nextBoolean()) {
 			System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 

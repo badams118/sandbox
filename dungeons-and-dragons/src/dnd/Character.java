@@ -1,8 +1,11 @@
 package dnd;
 
+import java.io.Serializable;
+
 import dnd.Weapon.TargetSize;
 
-public class Character extends MobileObject {
+public class Character extends MobileObject implements Serializable {
+	private static final long serialVersionUID = -5878197738378533947L;
 	private String name;
 	private Race race;
 	private float goldPieces;
