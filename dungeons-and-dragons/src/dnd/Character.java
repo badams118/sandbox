@@ -9,7 +9,7 @@ public class Character extends MobileObject {
 	private int experience;
 	private Weapon weapon;
 	private Armor armor;
-	private boolean shield;
+	private Shield shield;
 
 	public Character(String name, Race race, CharacterClass characterClass) {
 		this(name, race, characterClass, 1);
@@ -47,6 +47,19 @@ public class Character extends MobileObject {
 			this.armor = armor;
 			setArmorClass(armor.getArmorClass());
 			this.goldPieces -= armor.getCost();
+		} else {
+			System.out.println(this.name + " does not have enough gold to buy " + type);
+		}
+	}
+
+	public void buyShield(String type) {
+		Shield shield = Merchantile.getShield(type);
+		if (this.goldPieces >= shield.getCost()) {
+			if (this.shield == null) {
+				setArmorClass(this.getArmorClass() - 1);
+			}
+			this.shield = shield;
+			this.goldPieces -= shield.getCost();
 		} else {
 			System.out.println(this.name + " does not have enough gold to buy " + type);
 		}

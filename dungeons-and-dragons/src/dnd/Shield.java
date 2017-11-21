@@ -1,33 +1,27 @@
 package dnd;
 
-public class Armor {
+public class Shield {
 	private String type;
 	private float cost;
-	private int armorClass;
-	
-	public Armor(String type, float cost, int armorClass) {
+
+	public Shield(String type, float cost) {
 		this.type = type;
 		this.cost = cost;
-		this.armorClass = armorClass;
 	}
-	
+
 	public String getType() {
 		return this.type;
 	}
-
+	
 	public float getCost() {
 		return this.cost;
 	}
-	
-	public int getArmorClass() {
-		return this.armorClass;
-	}
-	
+
 	public boolean equals(Object object) {
 		boolean isEquals = false;
-		Armor armor = (Armor) object;
+		Shield shield = (Shield) object;
 		
-		if (type.equals(armor.getType())) {
+		if (type.equals(shield.getType())) {
 			isEquals = true;
 		} 
 		

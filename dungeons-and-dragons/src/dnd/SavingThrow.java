@@ -19,7 +19,7 @@ public enum SavingThrow {
 		
 		int roll = new Random().nextInt(20) + 1;
 		
-		if (characterClass == CharacterClass.ANTI_PALADIN) {
+		if (characterClass == CharacterClass.PALADIN || characterClass == CharacterClass.ANTI_PALADIN) {
 			roll = roll + 2;
 		}
 		

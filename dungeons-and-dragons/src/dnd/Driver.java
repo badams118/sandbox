@@ -8,8 +8,9 @@ public class Driver {
 		
 		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
 		System.out.println(joe.toString());
-		joe.buyWeapon("Unholy Reaver Long Sword");
+		joe.buyWeapon("Sword, long, Unholy Reaver");
 		joe.buyArmor("Chain");
+		joe.buyShield("Shield, small, wooden");
 		System.out.println(joe.toString());
 		
 		Monster skeleton = new Monster("skeleton", 7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);
