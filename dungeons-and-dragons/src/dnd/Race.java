@@ -1,6 +1,8 @@
 package dnd;
 
-public enum Race {
+import java.io.Serializable;
+
+public enum Race implements Serializable {
 	DROW {
 		public String toString() {
 			return "Drow";

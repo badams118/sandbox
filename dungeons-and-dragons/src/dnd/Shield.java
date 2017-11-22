@@ -1,6 +1,9 @@
 package dnd;
 
-public class Shield {
+import java.io.Serializable;
+
+public class Shield implements Serializable {
+	private static final long serialVersionUID = -8209938835680668343L;
 	private String type;
 	private float cost;
 

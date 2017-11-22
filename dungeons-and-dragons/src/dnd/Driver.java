@@ -19,20 +19,6 @@ public class Driver {
 		Monster skeleton = new Monster("skeleton", 7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);
 		System.out.println(skeleton.toString());
 		
-        try {   
-            FileOutputStream file = new FileOutputStream("/tmp/joe.ser");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-             
-            out.writeObject(joe);
-             
-            out.close();
-            file.close();
-             
-            System.out.println("Object has been serialized");
-        } catch(IOException ex) {
-            System.out.println("IOException is caught");
-        }
-		
 		if (new Random().nextBoolean()) {
 			System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
 					Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
@@ -57,5 +43,20 @@ public class Driver {
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		
+		// TODO now to add deserialization!
+        try {   
+            FileOutputStream file = new FileOutputStream("tmp/" + joe.getName().toLowerCase() + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+             
+            out.writeObject(joe);
+             
+            out.close();
+            file.close();
+             
+            System.out.println("\n" + joe.getName() + " has been serialized.");
+        } catch(IOException e) {
+            System.out.println("IOException is caught.");
+			e.printStackTrace();
+        }
 	}
 }

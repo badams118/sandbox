@@ -1,6 +1,9 @@
 package dnd;
 
-public class Armor {
+import java.io.Serializable;
+
+public class Armor implements Serializable {
+	private static final long serialVersionUID = 5141133817496453734L;
 	private String type;
 	private float cost;
 	private int armorClass;
