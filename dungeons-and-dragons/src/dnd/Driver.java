@@ -11,29 +11,29 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-//		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
-//		System.out.println(joe.toString());
-//		joe.buyWeapon("Sword, long, Unholy Reaver");
-//		joe.buyArmor("Chain");
-//		joe.buyShield("Shield, small, wooden");
+		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
+		System.out.println(joe.toString());
+		joe.buyWeapon("Sword, long, Unholy Reaver");
+		joe.buyArmor("Chain");
+		joe.buyShield("Shield, small, wooden");
 		
-		Character joe = null;
-		
-		try {
-			FileInputStream fileIn = new FileInputStream("tmp/joe.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			joe = (Character) in.readObject();
-			in.close();
-			fileIn.close();            
-			System.out.println(joe.getName() + " has been deserialized.\n");
-		} catch (IOException i) {
-			i.printStackTrace();
-			return;
-		} catch (ClassNotFoundException c) {
-			System.out.println("Character class not found.");
-			c.printStackTrace();
-			return;
-		}
+//		Character joe = null;
+//		
+//		try {
+//			FileInputStream fileIn = new FileInputStream("tmp/joe.ser");
+//			ObjectInputStream in = new ObjectInputStream(fileIn);
+//			joe = (Character) in.readObject();
+//			in.close();
+//			fileIn.close();            
+//			System.out.println(joe.getName() + " has been deserialized.\n");
+//		} catch (IOException i) {
+//			i.printStackTrace();
+//			return;
+//		} catch (ClassNotFoundException c) {
+//			System.out.println("Character class not found.");
+//			c.printStackTrace();
+//			return;
+//		}
 
 		System.out.println(joe.toString());
 		
@@ -47,7 +47,8 @@ public class Driver {
 		}
 		while (true) {	
 			if (skeleton.getHitPoints() <= 0) {
-				System.out.println(skeleton.getType() + " has died.");
+				System.out.println(skeleton.getType() + " has died.\n");
+				joe.addExperience(skeleton.getExperience());
 				break;
 			}
 			
@@ -55,7 +56,7 @@ public class Driver {
 					Integer.toString(skeleton.strikeMelee(joe)) + " damage.");
 			System.out.println(joe.getName() + " hit points: " + Integer.toString(joe.getHitPoints()) + "\n");
 			if (joe.getHitPoints() <= 0 || skeleton.getHitPoints() <= 0) {
-				System.out.println(joe.getName() + " has died.");
+				System.out.println(joe.getName() + " has died.\n");
 				break;
 			}
 			
@@ -64,7 +65,8 @@ public class Driver {
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		
-		// TODO now to add deserialization!
+		//System.out.println(joe.toString());
+		
         try {   
             FileOutputStream file = new FileOutputStream("tmp/" + joe.getName().toLowerCase() + ".ser");
             ObjectOutputStream out = new ObjectOutputStream(file);

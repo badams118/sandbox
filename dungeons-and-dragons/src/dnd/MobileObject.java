@@ -8,6 +8,7 @@ public abstract class MobileObject implements Serializable {
 	private int armorClass;
 	private int hitPoints;
 	private CharacterClass characterClass;
+	protected int experience;
 	private int level;
 	private int[][] hitMatrix;
 	
