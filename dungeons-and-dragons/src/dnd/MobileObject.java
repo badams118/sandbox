@@ -1,13 +1,19 @@
 package dnd;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class MobileObject {
+public abstract class MobileObject implements Serializable {
+	private static final long serialVersionUID = -1211342146528001795L;
 	private int armorClass;
 	private int hitPoints;
 	private CharacterClass characterClass;
 	private int level;
 	private int[][] hitMatrix;
+	
+	public MobileObject() {
+		
+	}
 	
 	public MobileObject(int armorClass, int hitPoints, CharacterClass characterClass, int level) {
 		this.armorClass = armorClass;

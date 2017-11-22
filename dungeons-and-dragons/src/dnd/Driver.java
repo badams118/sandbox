@@ -1,7 +1,9 @@
 package dnd;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Random;
 
@@ -9,11 +11,30 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
-		System.out.println(joe.toString());
-		joe.buyWeapon("Sword, long, Unholy Reaver");
-		joe.buyArmor("Chain");
-		joe.buyShield("Shield, small, wooden");
+//		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
+//		System.out.println(joe.toString());
+//		joe.buyWeapon("Sword, long, Unholy Reaver");
+//		joe.buyArmor("Chain");
+//		joe.buyShield("Shield, small, wooden");
+		
+		Character joe = null;
+		
+		try {
+			FileInputStream fileIn = new FileInputStream("tmp/joe.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			joe = (Character) in.readObject();
+			in.close();
+			fileIn.close();            
+			System.out.println(joe.getName() + " has been deserialized.\n");
+		} catch (IOException i) {
+			i.printStackTrace();
+			return;
+		} catch (ClassNotFoundException c) {
+			System.out.println("Character class not found.");
+			c.printStackTrace();
+			return;
+		}
+
 		System.out.println(joe.toString());
 		
 		Monster skeleton = new Monster("skeleton", 7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);

@@ -14,6 +14,10 @@ public class Character extends MobileObject implements Serializable {
 	private Armor armor;
 	private Shield shield;
 
+	public Character() {
+		super();
+	}
+	
 	public Character(String name, Race race, CharacterClass characterClass) {
 		this(name, race, characterClass, 1);
 	}
@@ -25,7 +29,7 @@ public class Character extends MobileObject implements Serializable {
 		this.goldPieces = Money.setMoney(characterClass);
 		this.experience = setExperience(characterClass, level);
 	}
-	
+		
 	public String getName() {
 		return this.name;
 	}
