@@ -41,8 +41,8 @@ public class Character extends MobileObject implements Serializable {
 		this.experience = 0;
 	}
 	
-	public void buyWeapon(String type) {
-		Weapon weapon = Merchantile.getWeapon(type);
+	public void buyWeapon(Merchantile merchantile, String type) {
+		Weapon weapon = merchantile.getWeapon(type);
 		if (this.goldPieces >= weapon.getCost()) {
 			this.weapon = weapon;
 			this.goldPieces -= weapon.getCost();
@@ -51,8 +51,8 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 	
-	public void buyArmor(String type) {
-		Armor armor = Merchantile.getArmor(type);
+	public void buyArmor(Merchantile merchantile, String type) {
+		Armor armor = merchantile.getArmor(type);
 		if (this.goldPieces >= armor.getCost()) {
 			this.armor = armor;
 			setArmorClass(armor.getArmorClass());
@@ -62,8 +62,8 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 
-	public void buyShield(String type) {
-		Shield shield = Merchantile.getShield(type);
+	public void buyShield(Merchantile merchantile, String type) {
+		Shield shield = merchantile.getShield(type);
 		if (this.goldPieces >= shield.getCost()) {
 			if (this.shield == null) {
 				setArmorClass(this.getArmorClass() - 1);

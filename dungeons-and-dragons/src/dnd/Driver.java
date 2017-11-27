@@ -10,12 +10,13 @@ import java.util.Random;
 public class Driver {
 
 	public static void main(String[] args) {
+		Merchantile merchantile = new Merchantile();
 		
-		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.ANTI_PALADIN);
+		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
 		System.out.println(joe.toString());
-		joe.buyWeapon("Sword, long, Unholy Reaver");
-		joe.buyArmor("Chain");
-		joe.buyShield("Shield, small, wooden");
+		joe.buyWeapon(merchantile, "Sword, long");
+		joe.buyArmor(merchantile, "Chain");
+		joe.buyShield(merchantile, "Shield, small, wooden");
 		
 //		Character joe = null;
 //		
@@ -65,7 +66,7 @@ public class Driver {
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		
-		//System.out.println(joe.toString());
+		//System.out.println(joe.toString() + "\n");
 		
         try {   
             FileOutputStream file = new FileOutputStream("tmp/" + joe.getName().toLowerCase() + ".ser");
@@ -76,7 +77,7 @@ public class Driver {
             out.close();
             file.close();
              
-            System.out.println("\n" + joe.getName() + " has been serialized.");
+            System.out.println(joe.getName() + " has been serialized.");
         } catch(IOException e) {
             System.out.println("IOException is caught.");
 			e.printStackTrace();
