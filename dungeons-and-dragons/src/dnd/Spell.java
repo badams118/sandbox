@@ -1,5 +1,7 @@
 package dnd;
 
+import java.util.List;
+
 public class Spell {
 	private String name;
 	//private SpellType type;
@@ -10,16 +12,16 @@ public class Spell {
 	private int castingTime;
 	private SavingThrow savingThrow;
 	private String description;
-	private CharacterClass[] characterClasses;
-	private int cureDamageLow;
-	private int cureDamageHigh;
+	private List<CharacterClass> characterClasses;
+	private int healOrDamageLow;
+	private int healOrDamageHigh;
 	
-	public Spell(String name, int level, int areaOfEffect, int cureDamageLow, int cureDamageHigh, SavingThrow savingThrow) {
-		this(name, level, 0, areaOfEffect, 1, savingThrow, null, null, cureDamageLow, cureDamageHigh);
+	public Spell(String name, int level, int areaOfEffect, List<CharacterClass> characterClasses, int healOrDamageLow, int healOrDamageHigh, SavingThrow savingThrow) {
+		this(name, level, 0, areaOfEffect, 1, savingThrow, null, characterClasses, healOrDamageLow, healOrDamageHigh);
 	}
 	
 	public Spell(String name, /*SpellType spellType,*/ int level, int duration, int areaOfEffect, /*Component[] components,*/ int castingTime,
-			SavingThrow savingThrow, String description, CharacterClass[] characterClasses, int cureDamageLow, int cureDamageHigh) {
+			SavingThrow savingThrow, String description, List<CharacterClass> characterClasses, int healOrDamageLow, int healOrDamageHigh) {
 		this.name = name;
 		//this.spellType = spellType;
 		this.level = level;
@@ -30,8 +32,8 @@ public class Spell {
 		this.savingThrow = savingThrow;
 		this.description = description;
 		this.characterClasses = characterClasses;
-		this.cureDamageHigh = cureDamageHigh;
-		this.cureDamageLow = cureDamageLow;
+		this.healOrDamageLow = healOrDamageLow;
+		this.healOrDamageHigh = healOrDamageHigh;
 	}
 	
 	public String getName() {

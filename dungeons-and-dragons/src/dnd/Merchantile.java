@@ -19,15 +19,15 @@ public class Merchantile {
 		shields.add(new Shield("Shield, small, wooden", 1));
 	}
 	
-	public  Weapon getWeapon(String type) {
+	public Weapon getWeapon(String type) {
 		return weapons.get(weapons.indexOf(new Weapon(type, 0, 0, 0, 0, 0)));
 	}
 	
-	public  Armor getArmor(String type) {
+	public Armor getArmor(String type) {
 		return armor.get(armor.indexOf(new Armor(type, 0, 0)));
 	}
 
-	public  Shield getShield(String type) {
+	public Shield getShield(String type) {
 		return shields.get(shields.indexOf(new Shield(type, 0)));
 	}
 }
