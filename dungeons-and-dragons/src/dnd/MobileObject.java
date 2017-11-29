@@ -1,6 +1,8 @@
 package dnd;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class MobileObject implements Serializable {
@@ -11,6 +13,7 @@ public abstract class MobileObject implements Serializable {
 	protected int experience;
 	private int level;
 	private int[][] hitMatrix;
+	protected List<Spell> spells;
 	
 	public MobileObject() {
 		
@@ -20,6 +23,7 @@ public abstract class MobileObject implements Serializable {
 		this.armorClass = armorClass;
 		this.hitPoints = hitPoints;
 		this.characterClass = characterClass;
+		this.spells = new ArrayList<Spell>();
 		this.level = level;
 		this.hitMatrix = CombatMatrix.getHitMatrix(characterClass, level);
 	}
