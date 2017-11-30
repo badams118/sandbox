@@ -1,22 +1,19 @@
 package dnd;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Random;
 
 public class Driver {
 
-	public static void main(String[] args) {
-		Merchantile merchantile = new Merchantile();
-		
-		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.FIGHTER);
+	public static void main(String[] args) {		
+		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.MAGIC_USER);
 		System.out.println(joe.toString());
-		joe.buyWeapon(merchantile, "Sword, long");
-		joe.buyArmor(merchantile, "Chain");
-		joe.buyShield(merchantile, "Shield, small, wooden");
+//		joe.buyWeapon("Sword, long");
+//		joe.buyArmor("Chain");
+//		joe.buyShield("Shield, small, wooden");
+		joe.buyWeapon("Dagger");
 		
 //		Character joe = null;
 //		

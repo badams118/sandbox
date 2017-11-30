@@ -1,6 +1,8 @@
 package dnd;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import dnd.Weapon.TargetSize;
 
@@ -12,6 +14,7 @@ public class Character extends MobileObject implements Serializable {
 	private Weapon weapon;
 	private Armor armor;
 	private Shield shield;
+	private List<Spell> spellBook;
 
 	public Character() {
 		super();
@@ -26,6 +29,7 @@ public class Character extends MobileObject implements Serializable {
 		this.name = name;
 		this.race = race;
 		this.goldPieces = Money.setMoney(characterClass);
+		this.spellBook = new ArrayList<Spell>();
 		setExperience(characterClass, level);
 	}
 		
@@ -41,45 +45,45 @@ public class Character extends MobileObject implements Serializable {
 		this.experience = 0;
 	}
 	
-	public void buyWeapon(Merchantile merchantile, String type) {
+	public void buyWeapon(String type) {
 		if (this.getCharacterClass() == CharacterClass.CLERIC &&
-				(!type.toLowerCase().contains("club") ||
-						!type.toLowerCase().contains("flail") ||
-						!type.toLowerCase().contains("hammer") ||
-						!type.toLowerCase().contains("mace") ||
-						!type.toLowerCase().contains("staff"))) {
+				!(type.toLowerCase().contains("club") ||
+						type.toLowerCase().contains("flail") ||
+						type.toLowerCase().contains("hammer") ||
+						type.toLowerCase().contains("mace") ||
+						type.toLowerCase().contains("staff"))) {
 			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
 			return;
 		}
 		
 		if (this.getCharacterClass() == CharacterClass.DRUID &&
-				(!type.toLowerCase().contains("club") ||
-						!type.toLowerCase().contains("dagger") ||
-						!type.toLowerCase().contains("dart") ||
-						!type.toLowerCase().contains("hammer") ||
-						!type.toLowerCase().contains("scimitar") ||
-						!type.toLowerCase().contains("sling") ||
-						!type.toLowerCase().contains("spear") ||
-						!type.toLowerCase().contains("staff"))) {
+				!(type.toLowerCase().contains("club") ||
+						type.toLowerCase().contains("dagger") ||
+						type.toLowerCase().contains("dart") ||
+						type.toLowerCase().contains("hammer") ||
+						type.toLowerCase().contains("scimitar") ||
+						type.toLowerCase().contains("sling") ||
+						type.toLowerCase().contains("spear") ||
+						type.toLowerCase().contains("staff"))) {
 			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
 			return;
 		}
 		
 		if ((this.getCharacterClass() == CharacterClass.MAGIC_USER ||
 				this.getCharacterClass() == CharacterClass.ILLUSIONIST) &&
-				(!type.toLowerCase().contains("dagger") ||
-						!type.toLowerCase().contains("dart") ||
-						!type.toLowerCase().contains("staff"))) {
+				!(type.toLowerCase().contains("dagger") ||
+						type.toLowerCase().contains("dart") ||
+						type.toLowerCase().contains("staff"))) {
 			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
 			return;
 		}
 		
 		if (this.getCharacterClass() == CharacterClass.THIEF) {
-			if (!type.toLowerCase().contains("club") ||
-					!type.toLowerCase().contains("dagger") ||
-					!type.toLowerCase().contains("dart") ||
-					!type.toLowerCase().contains("sling") ||
-					!type.toLowerCase().contains("sword")) {
+			if (!(type.toLowerCase().contains("club") ||
+					type.toLowerCase().contains("dagger") ||
+					type.toLowerCase().contains("dart") ||
+					type.toLowerCase().contains("sling") ||
+					type.toLowerCase().contains("sword"))) {
 				System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
 				return;
 			}			
@@ -91,7 +95,7 @@ public class Character extends MobileObject implements Serializable {
 			}
 		}
 		
-		Weapon weapon = merchantile.getWeapon(type);
+		Weapon weapon = Merchantile.getWeapon(type);
 		
 		if (this.goldPieces >= weapon.getCost()) {
 			this.weapon = weapon;
@@ -101,7 +105,7 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 	
-	public void buyArmor(Merchantile merchantile, String type) {
+	public void buyArmor(String type) {
 		if (this.getCharacterClass() == CharacterClass.MAGIC_USER || this.getCharacterClass() == CharacterClass.ILLUSIONIST) {
 			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot wear armor.");
 			return;
@@ -115,7 +119,7 @@ public class Character extends MobileObject implements Serializable {
 			return;
 		}
 		
-		Armor armor = merchantile.getArmor(type);
+		Armor armor = Merchantile.getArmor(type);
 		if (this.goldPieces >= armor.getCost()) {
 			this.armor = armor;
 			setArmorClass(armor.getArmorClass());
@@ -125,7 +129,7 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 
-	public void buyShield(Merchantile merchantile, String type) {
+	public void buyShield(String type) {
 		if (this.getCharacterClass() == CharacterClass.MAGIC_USER || 
 				this.getCharacterClass() == CharacterClass.ILLUSIONIST || 
 				this.getCharacterClass() == CharacterClass.THIEF) {
@@ -138,7 +142,7 @@ public class Character extends MobileObject implements Serializable {
 			return;
 		}
 		
-		Shield shield = merchantile.getShield(type);
+		Shield shield = Merchantile.getShield(type);
 		
 		if (this.goldPieces >= shield.getCost()) {
 			if (this.shield == null) {
@@ -149,6 +153,10 @@ public class Character extends MobileObject implements Serializable {
 		} else {
 			System.out.println(this.name + " does not have enough gold to buy " + type);
 		}
+	}
+	
+	public void memorizeSpell(String type) {
+		spellBook.add(SpellEncyclopedia.getSpell(type));
 	}
 	
 	public int strikeMelee(MobileObject target) {
