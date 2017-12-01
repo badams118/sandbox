@@ -12,10 +12,14 @@ public enum SavingThrow {
 	STAFF,
 	WAND,
 	BREATH_WEAPON,
-	SPELL;
+	SPELL,
+	NONE;
 	
-	public static boolean checkSavingThrow(CharacterClass characterClass, int level, SavingThrow attack) {
+	public static boolean checkSavingThrow(MobileObject target, SavingThrow attack) {
 		boolean isSaved = false;
+		
+		int level = target.getLevel();
+		CharacterClass characterClass = target.getCharacterClass();
 		
 		int roll = new Random().nextInt(20) + 1;
 		
@@ -409,7 +413,7 @@ public enum SavingThrow {
 				break;				
 			}
 			break;
-		}
+		} // "NONE" defaults to false
 		
 		return isSaved;
 	}

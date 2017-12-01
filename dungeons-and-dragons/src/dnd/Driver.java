@@ -7,13 +7,17 @@ import java.util.Random;
 
 public class Driver {
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		new Merchantile();
+		new SpellEncyclopedia();
+		
 		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.MAGIC_USER);
 		System.out.println(joe.toString());
 //		joe.buyWeapon("Sword, long");
 //		joe.buyArmor("Chain");
 //		joe.buyShield("Shield, small, wooden");
 		joe.buyWeapon("Dagger");
+		joe.memorizeSpell("Magic Missile");
 		
 //		Character joe = null;
 //		

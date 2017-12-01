@@ -1,8 +1,7 @@
 package dnd;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import dnd.Weapon.TargetSize;
 
@@ -14,7 +13,6 @@ public class Character extends MobileObject implements Serializable {
 	private Weapon weapon;
 	private Armor armor;
 	private Shield shield;
-	private List<Spell> spellBook;
 
 	public Character() {
 		super();
@@ -29,7 +27,6 @@ public class Character extends MobileObject implements Serializable {
 		this.name = name;
 		this.race = race;
 		this.goldPieces = Money.setMoney(characterClass);
-		this.spellBook = new ArrayList<Spell>();
 		setExperience(characterClass, level);
 	}
 		
@@ -153,10 +150,6 @@ public class Character extends MobileObject implements Serializable {
 		} else {
 			System.out.println(this.name + " does not have enough gold to buy " + type);
 		}
-	}
-	
-	public void memorizeSpell(String type) {
-		spellBook.add(SpellEncyclopedia.getSpell(type));
 	}
 	
 	public int strikeMelee(MobileObject target) {

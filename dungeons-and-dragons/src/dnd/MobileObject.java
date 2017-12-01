@@ -2,6 +2,7 @@ package dnd;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ public abstract class MobileObject implements Serializable {
 	protected int experience;
 	private int level;
 	private int[][] hitMatrix;
-	protected List<Spell> spells;
+	private HashMap<String, Spell> spellBook;
 	
 	public MobileObject() {
 		
@@ -23,7 +24,7 @@ public abstract class MobileObject implements Serializable {
 		this.armorClass = armorClass;
 		this.hitPoints = hitPoints;
 		this.characterClass = characterClass;
-		this.spells = new ArrayList<Spell>();
+		this.spellBook = new HashMap<String, Spell>();
 		this.level = level;
 		this.hitMatrix = CombatMatrix.getHitMatrix(characterClass, level);
 	}
@@ -77,6 +78,30 @@ public abstract class MobileObject implements Serializable {
 		return isHit;
 	}
 	
+	public void memorizeSpell(String type) {
+		spellBook.put(type, SpellEncyclopedia.getSpell(type));
+	}
+	
+	public int castSpell(Spell spell, MobileObject target) {
+		int healOrDamage = 0;
+
+		if (!this.isSaved(target, spell.getSavingThrow()) && spell.getHealHigh() + spell.getHealBonus() > 0) {			
+			healOrDamage = new Random().nextInt(spell.getHealHigh() - spell.getHealLow() + 1) + spell.getHealLow() + spell.getHealBonus();
+			target.updateHitPoints(healOrDamage);
+		}
+		
+		if (!this.isSaved(target, spell.getSavingThrow()) && spell.getDamageHigh() + spell.getDamageBonus() > 0) {			
+			healOrDamage = new Random().nextInt(spell.getDamageHigh() - spell.getDamageLow() + 1) + spell.getDamageLow() + spell.getDamageBonus();
+			target.updateHitPoints(-healOrDamage);
+		}
+		
+		return healOrDamage;
+	}
+
+	private boolean isSaved(MobileObject target, SavingThrow savingThrow) {
+		return SavingThrow.checkSavingThrow(target, savingThrow);
+	}
+	
 	public void updateHitPoints(int value) {
 		this.hitPoints += value;
 	}
@@ -86,10 +111,10 @@ public abstract class MobileObject implements Serializable {
 	}
 	
 	public CharacterClass getCharacterClass() {
-		return characterClass;
+		return this.characterClass;
 	}
 	
 	public int getLevel() {
-		return level;
+		return this.level;
 	}
 }

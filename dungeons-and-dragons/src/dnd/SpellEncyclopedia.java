@@ -8,10 +8,11 @@ public class SpellEncyclopedia {
 	private static HashMap<String, Spell> spells;
 	
 	public SpellEncyclopedia() {
+		spells = new HashMap<String, Spell>();
 		List<CharacterClass> characterClasses = new ArrayList<CharacterClass>();
 		
 		characterClasses.add(CharacterClass.MAGIC_USER);
-		spells.put("Magic Missile", new Spell("Magic Missile", 1, 0, characterClasses, 2, 5, null));
+		spells.put("Magic Missile", new Spell("Magic Missile", 1, 0, characterClasses, 0, 0, 2, 5, null));
 		characterClasses.clear();
 	}
 	

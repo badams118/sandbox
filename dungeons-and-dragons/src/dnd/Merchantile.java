@@ -1,38 +1,40 @@
 package dnd;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Merchantile {
-	private static List<Weapon> weapons;
-	private static List<Armor>  armor;
-	private static List<Shield> shields;
+	private static HashMap<String, Weapon> weapons;
+	private static HashMap<String, Armor>  armor;
+	private static HashMap<String, Shield> shields;
 	
 	public Merchantile() {
-		weapons = new ArrayList<Weapon>();
-		armor   = new ArrayList<Armor>();
-		shields = new ArrayList<Shield>();
+		weapons = new HashMap<String, Weapon>();
+		armor   = new HashMap<String, Armor>();
+		shields = new HashMap<String, Shield>();
 		
-		weapons.add(new Weapon("Blackrazor", 0, 1, 8, 1, 12, 3));
-		weapons.add(new Weapon("Dagger", 2, 1, 4, 1, 3));
-		weapons.add(new Weapon("Sword, long", 15, 1, 8, 1, 12, 0));
-		weapons.add(new Weapon("Sword, long, Unholy Reaver", 0, 1, 8, 1, 12, 5));
+		weapons.put("BlackRazor", new Weapon("Blackrazor", 0, 1, 8, 1, 12, 3));
+		weapons.put("Dagger", new Weapon("Dagger", 2, 1, 4, 1, 3));
+		weapons.put("Sword, long", new Weapon("Sword, long", 15, 1, 8, 1, 12, 0));
+		weapons.put("Sword, long, Unholy Reaver", new Weapon("Sword, long, Unholy Reaver", 0, 1, 8, 1, 12, 5));
 
-		armor.add(new Armor("Chain", 75, 5));		
-		armor.add(new Armor("Plate", 400, 3));
+		armor.put("Chain", new Armor("Chain", 75, 5));		
+		armor.put("Plate", new Armor("Plate", 400, 3));
 
-		shields.add(new Shield("Shield, small, wooden", 1));
+		shields.put("Shield, small, wooden", new Shield("Shield, small, wooden", 1));
 	}
 	
 	public static Weapon getWeapon(String type) {
-		return weapons.get(weapons.indexOf(new Weapon(type, 0, 0, 0, 0, 0)));
+		System.out.println(type);
+		return weapons.get(type);
 	}
 	
 	public static Armor getArmor(String type) {
-		return armor.get(armor.indexOf(new Armor(type, 0, 0)));
+		return armor.get(type);
 	}
 
 	public static Shield getShield(String type) {
-		return shields.get(shields.indexOf(new Shield(type, 0)));
+		return shields.get(type);
 	}
 }
