@@ -82,8 +82,18 @@ public abstract class MobileObject implements Serializable {
 		spellBook.put(type, SpellEncyclopedia.getSpell(type));
 	}
 	
-	public int castSpell(Spell spell, MobileObject target) {
+	public boolean hasSpell(String type) {
+		return spellBook.containsKey(type);
+	}
+	
+	public int castSpell(String type, MobileObject target) {
 		int healOrDamage = 0;
+		Spell spell = SpellEncyclopedia.getSpell(type);
+		
+		if (!spellBook.containsValue(spell)) {
+			System.out.println(" does not have this spell memorized.");
+			return 0;
+		}
 
 		if (spell.getHealHigh() + spell.getHealBonus() > 0) {			
 			healOrDamage = new Random().nextInt(spell.getHealHigh() - spell.getHealLow() + 1) + spell.getHealLow() + spell.getHealBonus();

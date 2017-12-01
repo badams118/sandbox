@@ -43,8 +43,13 @@ public class Driver {
 		System.out.println(skeleton.toString());
 		
 		if (new Random().nextBoolean()) {
-			System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
-					Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+			if (joe.hasSpell("Magic Missile")) {
+				System.out.println(joe.getName() + " casts spell on " + skeleton.getType() + " for " +
+						Integer.toString(joe.castSpell("Magic Missile", skeleton)) + " damage.");
+			} else {
+				System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
+						Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+			}
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		while (true) {	
@@ -61,9 +66,14 @@ public class Driver {
 				System.out.println(joe.getName() + " has died.\n");
 				break;
 			}
-			
-			System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
-					Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+
+			if (joe.hasSpell("Magic Missile")) {
+				System.out.println(joe.getName() + " casts spell on " + skeleton.getType() + " for " +
+						Integer.toString(joe.castSpell("Magic Missile", skeleton)) + " damage.");
+			} else {
+				System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
+						Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+			}
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		
