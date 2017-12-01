@@ -85,7 +85,7 @@ public abstract class MobileObject implements Serializable {
 	public int castSpell(Spell spell, MobileObject target) {
 		int healOrDamage = 0;
 
-		if (!this.isSaved(target, spell.getSavingThrow()) && spell.getHealHigh() + spell.getHealBonus() > 0) {			
+		if (spell.getHealHigh() + spell.getHealBonus() > 0) {			
 			healOrDamage = new Random().nextInt(spell.getHealHigh() - spell.getHealLow() + 1) + spell.getHealLow() + spell.getHealBonus();
 			target.updateHitPoints(healOrDamage);
 		}
@@ -94,6 +94,8 @@ public abstract class MobileObject implements Serializable {
 			healOrDamage = new Random().nextInt(spell.getDamageHigh() - spell.getDamageLow() + 1) + spell.getDamageLow() + spell.getDamageBonus();
 			target.updateHitPoints(-healOrDamage);
 		}
+		
+		spellBook.remove(spell);
 		
 		return healOrDamage;
 	}
