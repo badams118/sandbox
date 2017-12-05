@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class Weapon implements Serializable {
 	private static final long serialVersionUID = 2010415718746392761L;
-
-	public enum TargetSize {SMALL, MEDIUM, LARGE}
 	
 	private String type;
 	private float cost;

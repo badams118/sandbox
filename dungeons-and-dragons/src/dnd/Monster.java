@@ -1,8 +1,6 @@
 package dnd;
 
-import java.util.Random;
-
-import dnd.Weapon.TargetSize;
+import java.util.HashMap;
 
 public class Monster extends MobileObject {
 	private String type;
@@ -12,10 +10,24 @@ public class Monster extends MobileObject {
 	private int damageLow;
 	private int damageHigh;
 	private int morale;
+
+	public Monster(String type, int armorClass, int hitDice, int damageLow, int damageHigh) {
+		this(type, armorClass, hitDice, 0, damageLow, damageHigh, CharacterClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
+	}
 	
 	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
 			CharacterClass characterClass, int level, int morale) {
-		super(armorClass, hitDice, hitDiceModifier, 4 * hitDice + hitDiceModifier, characterClass, level);
+		this(type, armorClass, hitDice, hitDiceModifier, damageLow, damageHigh, characterClass, level, morale, TargetSize.MEDIUM);
+	}
+	
+	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
+			CharacterClass characterClass, int level, int morale, TargetSize size) {
+		super.setArmorClass(armorClass);
+		this.hitDice = hitDice;
+		this.hitDiceModifier = hitDiceModifier;
+		super.setHitPoints(4 * hitDice + hitDiceModifier);
+		super.setCharacterClass(characterClass);
+		super.setLevel(level);
 		this.type = type;
 		this.hitDice = hitDice;
 		this.hitDiceModifier = hitDiceModifier;
@@ -23,6 +35,8 @@ public class Monster extends MobileObject {
 		this.damageHigh = damageHigh;
 		this.morale = morale;
 		this.experience = calculateExperience();
+		super.populateHitMatrix(characterClass, level);
+		super.setSize(size);
 	}
 	
 	public int strikeMelee(MobileObject target) {

@@ -4,20 +4,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Driver {
 
 	public static void main(String[] args) {
+		String action;
+		
 		new Merchantile();
 		new SpellEncyclopedia();
+		
+		Scanner scanner = new Scanner(System.in);
 		
 		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.MAGIC_USER);
 		System.out.println(joe.toString());
 //		joe.buyWeapon("Sword, long");
 //		joe.buyArmor("Chain");
 //		joe.buyShield("Shield, small, wooden");
-		joe.buyWeapon("Dagger");
-		joe.memorizeSpell("Magic Missile");
+		//joe.buyWeapon("Dagger");
+		joe.memorizeSpell("magic missile");
 		
 //		Character joe = null;
 //		
@@ -39,16 +44,18 @@ public class Driver {
 
 		System.out.println(joe.toString());
 		
-		Monster skeleton = new Monster("skeleton", 7, 1, 0, 1, 6, CharacterClass.FIGHTER, 1, 12);
+		Monster skeleton = new Monster("skeleton", 7, 1, 1, 6);
 		System.out.println(skeleton.toString());
 		
 		if (new Random().nextBoolean()) {
-			if (joe.hasSpell("Magic Missile")) {
-				System.out.println(joe.getName() + " casts spell on " + skeleton.getType() + " for " +
-						Integer.toString(joe.castSpell("Magic Missile", skeleton)) + " damage.");
+//			System.out.println(joe.getName() + " action: ");
+//			action = scanner.nextLine();
+//			System.out.println("you entered: '" + action + "'\n");
+			
+			if (joe.hasSpell("magic missile")) {
+				joe.combatAction("cast magic missile", skeleton);
 			} else {
-				System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
-						Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+				joe.combatAction("melee", skeleton);
 			}
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
@@ -67,15 +74,19 @@ public class Driver {
 				break;
 			}
 
+//			System.out.println(joe.getName() + " action: ");
+//			action = scanner.nextLine();
+//			System.out.println("you entered: '" + action + "'\n");
+
 			if (joe.hasSpell("Magic Missile")) {
-				System.out.println(joe.getName() + " casts spell on " + skeleton.getType() + " for " +
-						Integer.toString(joe.castSpell("Magic Missile", skeleton)) + " damage.");
+				joe.combatAction("cast magic missile", skeleton);
 			} else {
-				System.out.println(joe.getName() + " strikes " + skeleton.getType() + " for " + 
-						Integer.toString(joe.strikeMelee(skeleton)) + " damage.");
+				joe.combatAction("melee", skeleton);
 			}
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
+		
+		scanner.close();
 		
 		//System.out.println(joe.toString() + "\n");
 		

@@ -80,6 +80,10 @@ public class Spell implements Serializable {
 		return this.damageBonus;
 	}
 	
+	public String toString() {
+		return this.name;
+	}
+	
 	public boolean equals(Object object) {
 		boolean isEquals = false;
 		Spell spell = (Spell) object;

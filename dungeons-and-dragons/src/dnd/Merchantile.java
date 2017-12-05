@@ -1,8 +1,6 @@
 package dnd;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Merchantile {
 	private static HashMap<String, Weapon> weapons;

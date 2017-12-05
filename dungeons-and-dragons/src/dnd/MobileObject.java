@@ -13,28 +13,12 @@ public abstract class MobileObject implements Serializable {
 	private CharacterClass characterClass;
 	protected int experience;
 	private int level;
+	private TargetSize size;
 	private int[][] hitMatrix;
 	private HashMap<String, Spell> spellBook;
 	
-	public MobileObject() {
-		
-	}
-	
-	public MobileObject(int armorClass, int hitPoints, CharacterClass characterClass, int level) {
-		this.armorClass = armorClass;
-		this.hitPoints = hitPoints;
-		this.characterClass = characterClass;
-		this.spellBook = new HashMap<String, Spell>();
-		this.level = level;
-		this.hitMatrix = CombatMatrix.getHitMatrix(characterClass, level);
-	}
-	
-	public MobileObject(int armorClass, int hitDice, int hitDiceModifier, int hitPoints, CharacterClass characterClass, int level) {
-		this.armorClass = armorClass;
-		this.hitPoints = hitPoints;
-		this.characterClass = CharacterClass.NONE;
-		this.level = level;
-		this.hitMatrix = CombatMatrix.getHitMatrix(CharacterClass.NONE, hitDice);
+	public MobileObject() {		
+		spellBook = new HashMap<String, Spell>();
 	}
 	
 	public void setArmorClass(int armorClass) {
@@ -43,6 +27,30 @@ public abstract class MobileObject implements Serializable {
 	
 	public int getArmorClass() {
 		return armorClass;
+	}
+	
+	public void setHitPoints(int hitPoints) {
+		this.hitPoints = hitPoints;
+	}
+	
+	public void setCharacterClass(CharacterClass characterClass) {
+		this.characterClass = characterClass;
+	}
+	
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	
+	public TargetSize getSize() {
+		return this.size;
+	}
+	
+	public void setSize (TargetSize size) {
+		this.size = size;
+	}
+	
+	public void populateHitMatrix(CharacterClass characterClass, int level) {
+		this.hitMatrix = CombatMatrix.getHitMatrix(characterClass, level);
 	}
 	
 	public int strikeMelee(MobileObject target, int damageLow, int damageHigh) {
@@ -79,21 +87,21 @@ public abstract class MobileObject implements Serializable {
 	}
 	
 	public void memorizeSpell(String type) {
-		spellBook.put(type, SpellEncyclopedia.getSpell(type));
+//		System.out.println("type: "+type.toLowerCase());
+//		System.out.println("spell: "+SpellEncyclopedia.getSpell(type.toLowerCase()).toString());
+		spellBook.put(type.toLowerCase(), SpellEncyclopedia.getSpell(type));
+	//	spellBook.put("magic missile", new Spell("magic missile", 1, 0, new ArrayList<CharacterClass>(), 0, 0, 2, 5, null));
+//		System.out.println("after spellBook.put()");
 	}
 	
 	public boolean hasSpell(String type) {
-		return spellBook.containsKey(type);
+		Spell spell = SpellEncyclopedia.getSpell(type.toLowerCase());
+		return spellBook.containsValue(spell);
 	}
 	
 	public int castSpell(String type, MobileObject target) {
 		int healOrDamage = 0;
 		Spell spell = SpellEncyclopedia.getSpell(type);
-		
-		if (!spellBook.containsValue(spell)) {
-			System.out.println(" does not have this spell memorized.");
-			return 0;
-		}
 
 		if (spell.getHealHigh() + spell.getHealBonus() > 0) {			
 			healOrDamage = new Random().nextInt(spell.getHealHigh() - spell.getHealLow() + 1) + spell.getHealLow() + spell.getHealBonus();

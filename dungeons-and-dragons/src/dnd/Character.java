@@ -3,8 +3,6 @@ package dnd;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import dnd.Weapon.TargetSize;
-
 public class Character extends MobileObject implements Serializable {
 	private static final long serialVersionUID = -5878197738378533947L;
 	private String name;
@@ -23,9 +21,14 @@ public class Character extends MobileObject implements Serializable {
 	}
 	
 	public Character(String name, Race race, CharacterClass characterClass, int level) {
-		super(10, CharacterClass.getHitPoints(characterClass, level), characterClass, level);
+		super.setArmorClass(10);
+		super.setHitPoints(CharacterClass.getHitPoints(characterClass, level));
+		super.setCharacterClass(characterClass);
+		super.setLevel(level);
+		super.populateHitMatrix(characterClass, level);
 		this.name = name;
 		this.race = race;
+		this.setSize(TargetSize.MEDIUM);
 		this.goldPieces = Money.setMoney(characterClass);
 		setExperience(characterClass, level);
 	}
@@ -152,12 +155,33 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 	
-	public int strikeMelee(MobileObject target) {
-		return strikeMelee(target, TargetSize.MEDIUM);
-	}
-	
-	public int strikeMelee(MobileObject target, TargetSize targetSize) {
-		return super.strikeMelee(target, this.weapon.getDamageLow(targetSize), this.weapon.getDamageHigh(targetSize), this.weapon.getDamageBonus());
+	public void combatAction(String action, MobileObject target) {
+		String spell;
+		String targetName = "";
+		
+		if (target instanceof Monster) {
+			Monster monster = (Monster) target;
+			targetName = monster.getType();
+		} else if (target instanceof Character) {
+			Character character = (Character) target;
+			targetName = character.getName();
+		}
+		
+		if (action.toLowerCase().contains("cast")) {
+			spell = action.substring(5);
+			if (this.hasSpell(spell)) {
+				System.out.println(this.name + " casts spell on " + targetName + " for " +
+						Integer.toString(super.castSpell("Magic Missile", target)) + " damage.");
+				this.castSpell(spell, target);
+			} else {
+				System.out.println(this.name + " does not have this spell memorized.");
+			}
+		} else if (action.toLowerCase().contains("melee") || action.isEmpty()) {
+			System.out.println(this.name + " strikes " + targetName + " for " + 
+					Integer.toString(super.strikeMelee(target, 
+							this.weapon.getDamageLow(target.getSize()), this.weapon.getDamageHigh(target.getSize()), 
+							this.weapon.getDamageBonus())) + " damage.");
+		}
 	}
 	
 	public String toString() {
