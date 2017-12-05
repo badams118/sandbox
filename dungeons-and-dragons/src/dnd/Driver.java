@@ -21,7 +21,7 @@ public class Driver {
 //		joe.buyWeapon("Sword, long");
 //		joe.buyArmor("Chain");
 //		joe.buyShield("Shield, small, wooden");
-		//joe.buyWeapon("Dagger");
+		joe.buyWeapon("Dagger");
 		joe.memorizeSpell("magic missile");
 		
 //		Character joe = null;
@@ -48,15 +48,16 @@ public class Driver {
 		System.out.println(skeleton.toString());
 		
 		if (new Random().nextBoolean()) {
-//			System.out.println(joe.getName() + " action: ");
-//			action = scanner.nextLine();
-//			System.out.println("you entered: '" + action + "'\n");
+			System.out.print(joe.getName() + " action: ");
+			action = scanner.nextLine();
+			//System.out.println("you entered: '" + action + "'\n");
+			joe.combatAction(action, skeleton);
 			
-			if (joe.hasSpell("magic missile")) {
-				joe.combatAction("cast magic missile", skeleton);
-			} else {
-				joe.combatAction("melee", skeleton);
-			}
+//			if (joe.hasSpell("magic missile")) {
+//				joe.combatAction("cast magic missile", skeleton);
+//			} else {
+//				joe.combatAction("melee", skeleton);
+//			}
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		while (true) {	
@@ -74,15 +75,16 @@ public class Driver {
 				break;
 			}
 
-//			System.out.println(joe.getName() + " action: ");
-//			action = scanner.nextLine();
-//			System.out.println("you entered: '" + action + "'\n");
+			System.out.print(joe.getName() + " action: ");
+			action = scanner.nextLine();
+			//System.out.println("you entered: '" + action + "'\n");
+			joe.combatAction(action, skeleton);
 
-			if (joe.hasSpell("Magic Missile")) {
-				joe.combatAction("cast magic missile", skeleton);
-			} else {
-				joe.combatAction("melee", skeleton);
-			}
+//			if (joe.hasSpell("Magic Missile")) {
+//				joe.combatAction("cast magic missile", skeleton);
+//			} else {
+//				joe.combatAction("melee", skeleton);
+//			}
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 		
