@@ -24,7 +24,6 @@ public class Merchantile {
 	}
 	
 	public static Weapon getWeapon(String type) {
-		System.out.println(type);
 		return weapons.get(type);
 	}
 	
