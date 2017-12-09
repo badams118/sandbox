@@ -82,7 +82,7 @@ class DndTest {
 	}
 
 	@Test
-	void testCombat() { // TODO need to sub in Stan to test spell combat
+	void testMeleeCombat() { 
 		Character joeTest = null;
 		Monster skeleton = new Monster("skeleton", 7, 1, 1, 6);
 		
@@ -126,4 +126,6 @@ class DndTest {
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 	}
+	
+	// TODO need to test spell combat with stan
 }
