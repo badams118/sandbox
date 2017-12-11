@@ -87,11 +87,7 @@ public abstract class MobileObject implements Serializable {
 	}
 	
 	public void memorizeSpell(String type) {
-//		System.out.println("type: "+type.toLowerCase());
-//		System.out.println("spell: "+SpellEncyclopedia.getSpell(type.toLowerCase()).toString());
 		spellBook.put(type.toLowerCase(), SpellEncyclopedia.getSpell(type));
-	//	spellBook.put("magic missile", new Spell("magic missile", 1, 0, new ArrayList<CharacterClass>(), 0, 0, 2, 5, null));
-//		System.out.println("after spellBook.put()");
 	}
 	
 	public boolean hasSpell(String type) {

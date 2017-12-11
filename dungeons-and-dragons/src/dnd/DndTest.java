@@ -62,8 +62,8 @@ class DndTest {
         }
         
 		Character stanTest = new Character("Stan_Test", Race.HUMAN, CharacterClass.MAGIC_USER);
-		joeTest.buyWeapon("Dagger");
-		joeTest.memorizeSpell("magic missile");
+		stanTest.buyWeapon("Dagger");
+		stanTest.memorizeSpell("magic missile");
 
         try {   
             file = new FileOutputStream("tmp/" + stanTest.getName().toLowerCase() + ".ser");
@@ -79,6 +79,8 @@ class DndTest {
 			e.printStackTrace();
 			Assert.fail("IOException");
         }
+        
+        System.out.println();
 	}
 
 	@Test
@@ -102,6 +104,9 @@ class DndTest {
 			Assert.fail("ClassNotFoundException");
 			return;
 		}
+		
+		System.out.println(joeTest.toString());
+		System.out.println(skeleton.toString());
 
 		if (new Random().nextBoolean()) {
 			joeTest.combatAction("melee", skeleton);
@@ -127,5 +132,60 @@ class DndTest {
 		}
 	}
 	
-	// TODO need to test spell combat with stan
+	@Test
+	void testSpellCombat() {
+		Character stanTest = null;
+		Monster skeleton = new Monster("skeleton", 7, 1, 1, 6);
+		
+		try {
+			FileInputStream fileIn = new FileInputStream("tmp/stan_test.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			stanTest = (Character) in.readObject();
+			in.close();
+			fileIn.close();            
+			System.out.println(stanTest.getName() + " has been deserialized.\n");
+		} catch (IOException i) {
+			i.printStackTrace();
+			Assert.fail("IOException");
+			return;
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			Assert.fail("ClassNotFoundException");
+			return;
+		}	
+
+		System.out.println(stanTest.toString());
+		System.out.println(skeleton.toString());
+		
+		if (new Random().nextBoolean()) {
+			if (stanTest.hasSpell("magic missile")) {
+				stanTest.combatAction("cast magic missile", skeleton);
+			} else {
+				stanTest.combatAction("melee", skeleton);
+			}
+			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
+		}
+		while (true) {	
+			if (skeleton.getHitPoints() <= 0) {
+				System.out.println(skeleton.getType() + " has died.\n");
+				stanTest.addExperience(skeleton.getExperience());
+				break;
+			}
+			
+			System.out.println(skeleton.getType() + " strikes " + stanTest.getName() + " for " + 
+					Integer.toString(skeleton.strikeMelee(stanTest)) + " damage.");
+			System.out.println(stanTest.getName() + " hit points: " + Integer.toString(stanTest.getHitPoints()) + "\n");
+			if (stanTest.getHitPoints() <= 0 || skeleton.getHitPoints() <= 0) {
+				System.out.println(stanTest.getName() + " has died.\n");
+				break;
+			}
+
+			if (stanTest.hasSpell("Magic Missile")) {
+				stanTest.combatAction("cast magic missile", skeleton);
+			} else {
+				stanTest.combatAction("melee", skeleton);
+			}
+			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
+		}
+	}
 }

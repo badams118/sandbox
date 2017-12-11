@@ -37,12 +37,28 @@ public class Character extends MobileObject implements Serializable {
 		return this.name;
 	}
 	
+	public String getRace() {
+		return this.race.toString();
+	}
+	
+	public Weapon getWeapon() {
+		return this.weapon;
+	}
+	
+	public int getExperience() {
+		return this.experience;
+	}
+	
 	public void addExperience(int experience) {
 		this.experience += experience;
 	}
 	
 	private void setExperience(CharacterClass characterClass, int level) {
 		this.experience = 0;
+	}
+	
+	public float getGoldPieces() {
+		return this.goldPieces;
 	}
 	
 	public void buyWeapon(String type) {
@@ -172,7 +188,6 @@ public class Character extends MobileObject implements Serializable {
 			if (this.hasSpell(spell)) {
 				System.out.println(this.name + " casts spell on " + targetName + " for " +
 						Integer.toString(super.castSpell("Magic Missile", target)) + " damage.");
-				this.castSpell(spell, target);
 			} else {
 				System.out.println(this.name + " does not have this spell memorized.");
 			}
@@ -187,14 +202,15 @@ public class Character extends MobileObject implements Serializable {
 	public String toString() {
 		String characterToString;
 		
-		characterToString = "Character name: " + name + "\n";
-		characterToString += "Race: " + this.race.toString() + "\n";
+		characterToString = "Character name: " + getName() + "\n";
+		characterToString += "Race: " + getRace() + "\n";
 		characterToString += "Class: " + getCharacterClass().toString() + "\n";
 		characterToString += "Level: " + Integer.toString(getLevel()) + "\n";
 		characterToString += "Armor class: " + Integer.toString(getArmorClass()) + "\n";
 		characterToString += "Hit Points: " + Integer.toString(getHitPoints()) + "\n";
-		characterToString += "Experience: " + Integer.toString(this.experience) + "\n";
-		characterToString += "Money: " + Float.toString(goldPieces) + "\n";
+		characterToString += "Experience: " + Integer.toString(getExperience()) + "\n";
+		characterToString += "Money: " + Float.toString(getGoldPieces()) + "\n";
+		//characterToString += this.weapon.toString();
 		
 		return characterToString;
 	}

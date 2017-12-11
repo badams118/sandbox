@@ -72,6 +72,20 @@ public class Weapon implements Serializable {
 		return cost;
 	}
 	
+	public String toString() {
+		String weaponToString;
+		
+		weaponToString = "Weapon type: " + getType() + "\n";
+		weaponToString += "Weapon cost: " + Float.toString(getCost()) + "\n";
+		weaponToString += "Weapon damage vs small/medium low: " + Integer.toString(getDamageLow(TargetSize.MEDIUM)) + "\n";
+		weaponToString += "Weapon damage vs small/medium high: " + Integer.toString(getDamageHigh(TargetSize.MEDIUM)) + "\n";
+		weaponToString += "Weapon damage vs large low: " + Integer.toString(getDamageLow(TargetSize.LARGE)) + "\n";
+		weaponToString += "Weapon damage vs large high: " + Integer.toString(getDamageHigh(TargetSize.LARGE)) + "\n";
+		weaponToString += "Weapon damage bonus: " + Integer.toString(getDamageBonus()) + "\n";		
+		
+		return weaponToString;
+	}
+	
 	public boolean equals(Object object) {
 		boolean isEquals = false;
 		Weapon weapon = (Weapon) object;

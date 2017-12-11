@@ -13,7 +13,7 @@ public class Merchantile {
 		shields = new HashMap<String, Shield>();
 		
 		weapons.put("BlackRazor", new Weapon("Blackrazor", 0, 1, 8, 1, 12, 3));
-		weapons.put("Dagger", new Weapon("Dagger", 2, 1, 4, 1, 3));
+		weapons.put("Dagger", new Weapon("Dagger", 2, 1, 4, 1, 3, 0));
 		weapons.put("Sword, long", new Weapon("Sword, long", 15, 1, 8, 1, 12, 0));
 		weapons.put("Sword, long, Unholy Reaver", new Weapon("Sword, long, Unholy Reaver", 0, 1, 8, 1, 12, 5));
 
