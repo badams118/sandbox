@@ -45,6 +45,14 @@ public class Character extends MobileObject implements Serializable {
 		return this.weapon;
 	}
 	
+	public Armor getArmor() {
+		return this.armor;
+	}
+	
+	public Shield getShield() {
+		return this.shield;
+	}
+	
 	public int getExperience() {
 		return this.experience;
 	}
@@ -188,6 +196,7 @@ public class Character extends MobileObject implements Serializable {
 			if (this.hasSpell(spell)) {
 				System.out.println(this.name + " casts spell on " + targetName + " for " +
 						Integer.toString(super.castSpell("Magic Missile", target)) + " damage.");
+				removeSpell(spell);
 			} else {
 				System.out.println(this.name + " does not have this spell memorized.");
 			}

@@ -12,11 +12,11 @@ public class SpellEncyclopedia {
 		List<CharacterClass> characterClasses = new ArrayList<CharacterClass>();
 		
 		characterClasses.add(CharacterClass.MAGIC_USER);
-		spells.put("magic missile", new Spell("Magic Missile", 1, 0, characterClasses, 0, 0, 2, 5, null));
+		spells.put("Magic Missile", new Spell("Magic Missile", 1, 0, characterClasses, 0, 0, 2, 5, null));
 		characterClasses.clear();
 	}
 	
 	public static Spell getSpell(String type) {
-		return spells.get(type.toLowerCase());
+		return spells.get(type);
 	}
 }

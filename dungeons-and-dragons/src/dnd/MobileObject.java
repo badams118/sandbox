@@ -15,7 +15,7 @@ public abstract class MobileObject implements Serializable {
 	private int level;
 	private TargetSize size;
 	private int[][] hitMatrix;
-	private HashMap<String, Spell> spellBook;
+	public HashMap<String, Spell> spellBook;
 	
 	public MobileObject() {		
 		spellBook = new HashMap<String, Spell>();
@@ -87,11 +87,11 @@ public abstract class MobileObject implements Serializable {
 	}
 	
 	public void memorizeSpell(String type) {
-		spellBook.put(type.toLowerCase(), SpellEncyclopedia.getSpell(type));
+		spellBook.put(type, SpellEncyclopedia.getSpell(type));
 	}
 	
 	public boolean hasSpell(String type) {
-		Spell spell = SpellEncyclopedia.getSpell(type.toLowerCase());
+		Spell spell = SpellEncyclopedia.getSpell(type);
 		return spellBook.containsValue(spell);
 	}
 	
@@ -109,9 +109,13 @@ public abstract class MobileObject implements Serializable {
 			target.updateHitPoints(-healOrDamage);
 		}
 		
-		spellBook.remove(spell);
+		//spellBook.remove(spell);
 		
 		return healOrDamage;
+	}
+	
+	public void removeSpell(String spell) {
+		this.spellBook.remove(spell);
 	}
 
 	private boolean isSaved(MobileObject target, SavingThrow savingThrow) {

@@ -43,8 +43,11 @@ class DndTest {
 		
 		Character joeTest = new Character("Joe_Test", Race.HUMAN, CharacterClass.FIGHTER);
 		joeTest.buyWeapon("Sword, long");
+		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword, long");
 		joeTest.buyArmor("Chain");
+		Assert.assertEquals(joeTest.getArmor().getType(), "Chain");
 		joeTest.buyShield("Shield, small, wooden");
+		Assert.assertEquals(joeTest.getShield().getType(), "Shield, small, wooden");
 
         try {   
             file = new FileOutputStream("tmp/" + joeTest.getName().toLowerCase() + ".ser");
@@ -63,7 +66,8 @@ class DndTest {
         
 		Character stanTest = new Character("Stan_Test", Race.HUMAN, CharacterClass.MAGIC_USER);
 		stanTest.buyWeapon("Dagger");
-		stanTest.memorizeSpell("magic missile");
+		stanTest.memorizeSpell("Magic Missile");
+		Assert.assertTrue(stanTest.hasSpell("Magic Missile"));
 
         try {   
             file = new FileOutputStream("tmp/" + stanTest.getName().toLowerCase() + ".ser");
@@ -158,8 +162,9 @@ class DndTest {
 		System.out.println(skeleton.toString());
 		
 		if (new Random().nextBoolean()) {
-			if (stanTest.hasSpell("magic missile")) {
-				stanTest.combatAction("cast magic missile", skeleton);
+			if (stanTest.hasSpell("Magic Missile")) {
+				stanTest.combatAction("cast Magic Missile", skeleton);
+				Assert.assertFalse(stanTest.hasSpell("Magic Missile"));				
 			} else {
 				stanTest.combatAction("melee", skeleton);
 			}
@@ -181,7 +186,8 @@ class DndTest {
 			}
 
 			if (stanTest.hasSpell("Magic Missile")) {
-				stanTest.combatAction("cast magic missile", skeleton);
+				stanTest.combatAction("cast Magic Missile", skeleton);
+				Assert.assertFalse(stanTest.hasSpell("Magic Missile"));	
 			} else {
 				stanTest.combatAction("melee", skeleton);
 			}

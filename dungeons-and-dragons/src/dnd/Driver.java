@@ -22,7 +22,7 @@ public class Driver {
 //		joe.buyArmor("Chain");
 //		joe.buyShield("Shield, small, wooden");
 		joe.buyWeapon("Dagger");
-		joe.memorizeSpell("magic missile");
+		joe.memorizeSpell("Magic Missile");
 		
 //		Character joe = null;
 //		
