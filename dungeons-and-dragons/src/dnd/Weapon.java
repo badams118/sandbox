@@ -6,18 +6,18 @@ public class Weapon implements Serializable {
 	private static final long serialVersionUID = 2010415718746392761L;
 	
 	private String type;
-	private float cost;
+	private double cost;
 	private int damageLowVsSmallMedium;
 	private int damageHighVsSmallMedium;
 	private int damageLowVsLarge;
 	private int damageHighVsLarge;
 	private int damageBonus;
 
-	public Weapon(String type, float cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge) {
+	public Weapon(String type, double cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge) {
 		this(type, cost, damageLowVsSmallMedium, damageHighVsSmallMedium, damageLowVsLarge, damageHighVsLarge, 0);
 	}
 	
-	public Weapon(String type, float cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge,
+	public Weapon(String type, double cost, int damageLowVsSmallMedium, int damageHighVsSmallMedium, int damageLowVsLarge, int damageHighVsLarge,
 			int damageBonus) {
 		this.type = type;
 		this.cost = cost;
@@ -68,7 +68,7 @@ public class Weapon implements Serializable {
 		return type;
 	}
 	
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
 	
@@ -76,7 +76,7 @@ public class Weapon implements Serializable {
 		String weaponToString;
 		
 		weaponToString = "Weapon type: " + getType() + "\n";
-		weaponToString += "Weapon cost: " + Float.toString(getCost()) + "\n";
+		weaponToString += "Weapon cost: " + Double.toString(getCost()) + "\n";
 		weaponToString += "Weapon damage vs small/medium low: " + Integer.toString(getDamageLow(TargetSize.MEDIUM)) + "\n";
 		weaponToString += "Weapon damage vs small/medium high: " + Integer.toString(getDamageHigh(TargetSize.MEDIUM)) + "\n";
 		weaponToString += "Weapon damage vs large low: " + Integer.toString(getDamageLow(TargetSize.LARGE)) + "\n";

@@ -34,8 +34,8 @@ public enum Money {
 		return goldPieces;
 	}
 	
-	public static float convertMoney(Money type, int pieces) {
-		float goldPieces;
+	public static double toGold(int pieces, Money type) {
+		double goldPieces;
 		
 		switch (type) {
 		case COPPER:
