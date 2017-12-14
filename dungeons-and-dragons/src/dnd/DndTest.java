@@ -200,15 +200,15 @@ class DndTest {
 	void testEncounter() {
 		HashMap<String, Monster> monsters = new HashMap<String, Monster>();
 
-		Monster skeleton1 = new Monster("skeleton 1", 7, 1, 1, 6);
-		Monster skeleton2 = new Monster("skeleton 2", 7, 1, 1, 6);
+		Monster skeleton01 = new Monster("skeleton 01", 7, 1, 1, 6);
+		Monster skeleton02 = new Monster("skeleton 02", 7, 1, 1, 6);
 
-		monsters.put("skeleton 1", skeleton1);
-		monsters.put("skeleton 2", skeleton2);
+		monsters.put("skeleton 01", skeleton01);
+		monsters.put("skeleton 02", skeleton02);
 		
 		Encounter encounter = new Encounter(monsters);
 
-		Character joeTest = new Character("Joe_Test", Race.HUMAN, CharacterClass.FIGHTER);
+		Character joeTest = new Character("Joe_Test", Race.HUMAN, CharacterClass.FIGHTER, 2);
 		joeTest.buyWeapon("Sword");
 		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
 		joeTest.buyArmor("Chain");
@@ -217,26 +217,28 @@ class DndTest {
 		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
 		
 		if (new Random().nextBoolean()) {
-			joeTest.combatAction("melee", skeleton);
-			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
+			joeTest.combatAction("melee", encounter.getMonster("skeleton 01"));
+			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
+					Integer.toString(encounter.getMonster("skeleton 01").getHitPoints()) + "\n");
 		}
 		while (true) {	
-			if (skeleton.getHitPoints() <= 0) {
-				System.out.println(skeleton.getType() + " has died.\n");
-				joeTest.addExperience(skeleton.getExperience());
+			if (encounter.getMonster("skeleton 01").getHitPoints() <= 0) {
+				System.out.println(encounter.getMonster("skeleton 01").getType() + " has died.\n");
+				joeTest.addExperience(encounter.getMonster("skeleton 01").getExperience());
 				break;
 			}
 			
-			System.out.println(skeleton.getType() + " strikes " + joeTest.getName() + " for " + 
-					Integer.toString(skeleton.strikeMelee(joeTest)) + " damage.");
+			System.out.println(encounter.getMonster("skeleton 01").getType() + " strikes " + joeTest.getName() + " for " + 
+					Integer.toString(encounter.getMonster("skeleton 01").strikeMelee(joeTest)) + " damage.");
 			System.out.println(joeTest.getName() + " hit points: " + Integer.toString(joeTest.getHitPoints()) + "\n");
-			if (joeTest.getHitPoints() <= 0 || skeleton.getHitPoints() <= 0) {
+			if (joeTest.getHitPoints() <= 0 || encounter.getMonster("skeleton 01").getHitPoints() <= 0) {
 				System.out.println(joeTest.getName() + " has died.\n");
 				break;
 			}
 
-			joeTest.combatAction("melee", skeleton);
-			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
+			joeTest.combatAction("melee", encounter.getMonster("skeleton 01"));
+			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
+					Integer.toString(encounter.getMonster("skeleton 01").getHitPoints()) + "\n");
 		}
 	}
 }

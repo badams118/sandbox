@@ -109,4 +109,15 @@ public class Monster extends MobileObject {
 		
 		return monsterToString;
 	}
+
+	public boolean equals(Object object) {
+		boolean isEquals = false;
+		Monster monster = (Monster) object;
+		
+		if (type.equals(monster.getType())) {
+			isEquals = true;
+		} 
+		
+		return isEquals;
+	}
 }

@@ -6,11 +6,10 @@ public class Encounter {
 	private HashMap<String, Monster> monsters;
 
 	public Encounter(HashMap<String, Monster> monsters) {
-		monsters = new HashMap<String, Monster>();
-		this.monsters = monsters;
+		this.monsters = new HashMap<String, Monster>(monsters);
 	}
 	
-	public Monster getMonster() {
-		return ;
+	public Monster getMonster(String name) {
+		return monsters.get(name);
 	}
 }
