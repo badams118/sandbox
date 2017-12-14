@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.Random;
 
 import org.junit.Assert;
@@ -42,12 +43,12 @@ class DndTest {
         ObjectOutputStream out;
 		
 		Character joeTest = new Character("Joe_Test", Race.HUMAN, CharacterClass.FIGHTER);
-		joeTest.buyWeapon("Sword, long");
-		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword, long");
+		joeTest.buyWeapon("Sword");
+		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
 		joeTest.buyArmor("Chain");
 		Assert.assertEquals(joeTest.getArmor().getType(), "Chain");
-		joeTest.buyShield("Shield, small, wooden");
-		Assert.assertEquals(joeTest.getShield().getType(), "Shield, small, wooden");
+		joeTest.buyShield("Shield");
+		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
 
         try {   
             file = new FileOutputStream("tmp/" + joeTest.getName().toLowerCase() + ".ser");
@@ -191,6 +192,50 @@ class DndTest {
 			} else {
 				stanTest.combatAction("melee", skeleton);
 			}
+			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
+		}
+	}
+	
+	@Test
+	void testEncounter() {
+		HashMap<String, Monster> monsters = new HashMap<String, Monster>();
+
+		Monster skeleton1 = new Monster("skeleton 1", 7, 1, 1, 6);
+		Monster skeleton2 = new Monster("skeleton 2", 7, 1, 1, 6);
+
+		monsters.put("skeleton 1", skeleton1);
+		monsters.put("skeleton 2", skeleton2);
+		
+		Encounter encounter = new Encounter(monsters);
+
+		Character joeTest = new Character("Joe_Test", Race.HUMAN, CharacterClass.FIGHTER);
+		joeTest.buyWeapon("Sword");
+		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
+		joeTest.buyArmor("Chain");
+		Assert.assertEquals(joeTest.getArmor().getType(), "Chain");
+		joeTest.buyShield("Shield");
+		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
+		
+		if (new Random().nextBoolean()) {
+			joeTest.combatAction("melee", skeleton);
+			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
+		}
+		while (true) {	
+			if (skeleton.getHitPoints() <= 0) {
+				System.out.println(skeleton.getType() + " has died.\n");
+				joeTest.addExperience(skeleton.getExperience());
+				break;
+			}
+			
+			System.out.println(skeleton.getType() + " strikes " + joeTest.getName() + " for " + 
+					Integer.toString(skeleton.strikeMelee(joeTest)) + " damage.");
+			System.out.println(joeTest.getName() + " hit points: " + Integer.toString(joeTest.getHitPoints()) + "\n");
+			if (joeTest.getHitPoints() <= 0 || skeleton.getHitPoints() <= 0) {
+				System.out.println(joeTest.getName() + " has died.\n");
+				break;
+			}
+
+			joeTest.combatAction("melee", skeleton);
 			System.out.println(skeleton.getType() + " hit points: " + Integer.toString(skeleton.getHitPoints()) + "\n");
 		}
 	}

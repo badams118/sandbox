@@ -103,9 +103,9 @@ public class Merchantile {
 		armor.put("Splinted", new Armor("Splinted", 80, 4));
 		armor.put("Studded", new Armor("Studded", 15, 7));
 
-		shields.put("Shield, small, wooden", new Shield("Shield", 1));
-		shields.put("Shield, small, wooden", new Shield("Shield, large", 15));
-		shields.put("Shield, small, wooden", new Shield("Shield, small", 10));
+		shields.put("Shield", new Shield("Shield", 1));
+		shields.put("Shield, large", new Shield("Shield, large", 15));
+		shields.put("Shield, small", new Shield("Shield, small", 10));
 		shields.put("Shield, small, wooden", new Shield("Shield, small, wooden", 1));
 	}
 	
