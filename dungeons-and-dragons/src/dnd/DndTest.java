@@ -216,6 +216,8 @@ class DndTest {
 		joeTest.buyShield("Shield");
 		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
 		
+		Party party = new Party(joeTest);
+		
 		if (new Random().nextBoolean()) {
 			joeTest.combatAction("melee", encounter.getMonster("skeleton 01"));
 			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
