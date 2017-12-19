@@ -15,8 +15,16 @@ public class Party {
 	public Party(HashMap<String, Character> characters) {
 		this.characters = new HashMap<String, Character>(characters);
 	}
+
+	public HashMap<String, Character> getCharacters() {
+		return this.characters;
+	}
+	
+	public void updateCharacters(HashMap<String, Character> characters) {
+		this.characters = characters;
+	}
 	
 	public Character getCharacter(String name) {
-		return characters.get(name);
+		return this.characters.get(name);
 	}
 }
