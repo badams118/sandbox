@@ -10,6 +10,10 @@ public class Monster extends MobileObject {
 	private int damageLow;
 	private int damageHigh;
 	private int morale;
+	
+	public Monster() {
+		super();
+	}
 
 	public Monster(String type, int armorClass, int hitDice, int damageLow, int damageHigh) {
 		this(type, armorClass, hitDice, 0, damageLow, damageHigh, CharacterClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
