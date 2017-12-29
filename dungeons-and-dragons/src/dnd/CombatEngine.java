@@ -17,9 +17,47 @@ public class CombatEngine {
 	public static HashMap<String, Character> doCombat(Encounter encounter, Party party) {
 		HashMap<String, Monster> monsters = encounter.getMonsters();
 		HashMap<String, Character> characters = party.getCharacters();
+		Iterator<Entry<String, Monster>> encounterIterator;
+		Iterator<Entry<String, Character>> partyIterator;
+		//HashMap.Entry<String, Monster> encounterEntry;
+		//HashMap.Entry<String, Character> partyEntry;
+		Monster currentMonster;
+		Character currentCharacter;
+		Monster encounterTarget = (Monster) getLowestAC(new HashMap<String, MobileObject>(monsters));
+		Character partyTarget = (Character) getLowestAC(new HashMap<String, MobileObject>(characters));
 		
-		MobileObject mob = getLowestAC(new HashMap<String, MobileObject>(monsters));
+		System.out.println(partyTarget.toString());
+
+		if (new Random().nextBoolean()) {
+			partyIterator = characters.entrySet().iterator();
+			while (partyIterator.hasNext()) {
+				currentCharacter = partyIterator.next().getValue();
+				currentCharacter.combatAction("melee", encounterTarget);
+				System.out.println(encounterTarget.getType() + " hit points: " + 
+						Integer.toString(encounterTarget.getHitPoints()) + "\n");
+			}
+			
+			if (encounterTarget.getHitPoints() <= 0) {
+				System.out.println(encounterTarget.getType() + " has died.\n");
+			}
+		}
 		
+		while (true) {	
+			encounterIterator = monsters.entrySet().iterator();
+			while (encounterIterator.hasNext()) {
+				currentMonster = encounterIterator.next().getValue();
+				System.out.println(currentMonster.getType() + " strikes " + partyTarget.getName() + " for " + 
+						Integer.toString(currentMonster.strikeMelee(partyTarget)) + " damage.");
+			}
+			
+			if (partyTarget.getHitPoints() <= 0) {
+				System.out.println("\n" + partyTarget.getName() + " has died.\n");
+				break;
+			}
+		}
+		
+		System.out.println(partyTarget.toString());
+			
 //		if (new Random().nextBoolean()) {
 //			party.getCharacter("Joe Test").combatAction("melee", encounter.getMonster("skeleton 01"));
 //			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
@@ -54,9 +92,10 @@ public class CombatEngine {
 		MobileObject lowestACMob = new Monster();
 		lowestACMob.setArmorClass(Integer.MAX_VALUE);
 		Iterator<Entry<String, MobileObject>> iterator = mobs.entrySet().iterator();
+		HashMap.Entry<String, MobileObject> entry;
 		
 		while (iterator.hasNext()) {
-			HashMap.Entry<String, MobileObject> entry = (HashMap.Entry<String, MobileObject>) iterator.next();
+			entry = (HashMap.Entry<String, MobileObject>) iterator.next();
 			currentMob = (MobileObject) entry.getValue();
 			if (currentMob.getArmorClass() < lowestACMob.getArmorClass()) {
 				lowestACMob = currentMob;

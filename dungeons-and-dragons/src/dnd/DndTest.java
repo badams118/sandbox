@@ -203,15 +203,20 @@ class DndTest {
 		
 		Encounter encounter = new Encounter(skeleton01, skeleton02);
 
-		Character joeTest = new Character("Joe Test", Race.HUMAN, CharacterClass.FIGHTER, 2);
+		Character joeTest = new Character("Joe Test", Race.HUMAN, CharacterClass.FIGHTER);
 		joeTest.buyWeapon("Sword");
 		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
 		joeTest.buyArmor("Chain");
 		Assert.assertEquals(joeTest.getArmor().getType(), "Chain");
 		joeTest.buyShield("Shield");
 		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
+		
+		Character stanTest = new Character("Stan_Test", Race.HUMAN, CharacterClass.MAGIC_USER);
+		stanTest.buyWeapon("Dagger");
+		stanTest.memorizeSpell("Magic Missile");
+		Assert.assertTrue(stanTest.hasSpell("Magic Missile"));
 			
-		Party party = new Party(joeTest);
+		Party party = new Party(joeTest, stanTest);
 		
 		party.updateCharacters(CombatEngine.doCombat(encounter, party));
 		
