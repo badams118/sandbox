@@ -1,20 +1,20 @@
 package dnd;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class Spell implements Serializable {
 	private static final long serialVersionUID = -219947950436259116L;
 	private String name;
 	//private SpellType type;
-	private int level;
 	private int duration; 
 	private int areaOfEffect;
 	//private Component[] components;
 	private int castingTime;
 	private SavingThrow savingThrow;
 	private String description;
-	private List<CharacterClass> characterClasses;
+	private HashMap<MobileObjectClass, Integer> classLevels;
 	private int healLow;
 	private int healHigh;
 	private int healBonus;
@@ -22,24 +22,27 @@ public class Spell implements Serializable {
 	private int damageHigh;
 	private int damageBonus;
 	
-	public Spell(String name, int level, int areaOfEffect, List<CharacterClass> characterClasses, 
-			int healLow, int healHigh, int damageLow, int damageHigh, SavingThrow savingThrow) {
-		this(name, level, 0, areaOfEffect, 1, savingThrow, null, characterClasses, healLow, healHigh, 0, damageLow, damageHigh, 0);
+	public Spell() {
+		this(null, 0, 0, 0, null, null, null, 0, 0, 0, 0, 0, 0);
 	}
 	
-	public Spell(String name, /*SpellType spellType,*/ int level, int duration, int areaOfEffect, /*Component[] components,*/ int castingTime,
-			SavingThrow savingThrow, String description, List<CharacterClass> characterClasses, 
+	public Spell(String name, int areaOfEffect, HashMap<MobileObjectClass, Integer> classLevels, 
+			int healLow, int healHigh, int damageLow, int damageHigh, SavingThrow savingThrow) {
+		this(name, 0, areaOfEffect, 1, savingThrow, null, classLevels, healLow, healHigh, 0, damageLow, damageHigh, 0);
+	}
+	
+	public Spell(String name, /*SpellType spellType,*/ int duration, int areaOfEffect, /*Component[] components,*/ int castingTime,
+			SavingThrow savingThrow, String description, HashMap<MobileObjectClass, Integer> classLevels, 
 			int healLow, int healHigh, int healBonus, int damageLow, int damageHigh, int damageBonus) {
 		this.name = name;
 		//this.spellType = spellType;
-		this.level = level;
 		this.duration = duration;
 		this.areaOfEffect = areaOfEffect;
 		//this.components = components;
 		this.castingTime = castingTime;
 		this.savingThrow = savingThrow;
 		this.description = description;
-		this.characterClasses = characterClasses;
+		this.classLevels = classLevels;
 		this.healLow = healLow;
 		this.healHigh = healHigh;
 		this.healBonus = healBonus;

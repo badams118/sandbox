@@ -1,7 +1,6 @@
 package dnd;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 public class Character extends MobileObject implements Serializable {
 	private static final long serialVersionUID = -5878197738378533947L;
@@ -16,13 +15,16 @@ public class Character extends MobileObject implements Serializable {
 		super();
 	}
 	
-	public Character(String name, Race race, CharacterClass characterClass) {
+	public Character(String name, Race race, MobileObjectClass characterClass) {
 		this(name, race, characterClass, 1);
 	}
 	
-	public Character(String name, Race race, CharacterClass characterClass, int level) {
+	public Character(String name, Race race, MobileObjectClass characterClass, int level) {
+		int hitPoints = MobileObjectClass.getHitPoints(characterClass, level);
+		
 		super.setArmorClass(10);
-		super.setHitPoints(CharacterClass.getHitPoints(characterClass, level));
+		super.setHitPoints(hitPoints);
+		super.setMaxHitPoints(hitPoints);
 		super.setCharacterClass(characterClass);
 		super.setLevel(level);
 		super.populateHitMatrix(characterClass, level);
@@ -61,7 +63,7 @@ public class Character extends MobileObject implements Serializable {
 		this.experience += experience;
 	}
 	
-	private void setExperience(CharacterClass characterClass, int level) {
+	private void setExperience(MobileObjectClass characterClass, int level) {
 		this.experience = 0;
 	}
 	
@@ -70,17 +72,17 @@ public class Character extends MobileObject implements Serializable {
 	}
 	
 	public void buyWeapon(String type) {
-		if (this.getCharacterClass() == CharacterClass.CLERIC &&
+		if (this.getMobileObjectClass() == MobileObjectClass.CLERIC &&
 				!(type.toLowerCase().contains("club") ||
 						type.toLowerCase().contains("flail") ||
 						type.toLowerCase().contains("hammer") ||
 						type.toLowerCase().contains("mace") ||
 						type.toLowerCase().contains("staff"))) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use this weapon.");
 			return;
 		}
 		
-		if (this.getCharacterClass() == CharacterClass.DRUID &&
+		if (this.getMobileObjectClass() == MobileObjectClass.DRUID &&
 				!(type.toLowerCase().contains("club") ||
 						type.toLowerCase().contains("dagger") ||
 						type.toLowerCase().contains("dart") ||
@@ -89,32 +91,32 @@ public class Character extends MobileObject implements Serializable {
 						type.toLowerCase().contains("sling") ||
 						type.toLowerCase().contains("spear") ||
 						type.toLowerCase().contains("staff"))) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use this weapon.");
 			return;
 		}
 		
-		if ((this.getCharacterClass() == CharacterClass.MAGIC_USER ||
-				this.getCharacterClass() == CharacterClass.ILLUSIONIST) &&
+		if ((this.getMobileObjectClass() == MobileObjectClass.MAGIC_USER ||
+				this.getMobileObjectClass() == MobileObjectClass.ILLUSIONIST) &&
 				!(type.toLowerCase().contains("dagger") ||
 						type.toLowerCase().contains("dart") ||
 						type.toLowerCase().contains("staff"))) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use this weapon.");
 			return;
 		}
 		
-		if (this.getCharacterClass() == CharacterClass.THIEF) {
+		if (this.getMobileObjectClass() == MobileObjectClass.THIEF) {
 			if (!(type.toLowerCase().contains("club") ||
 					type.toLowerCase().contains("dagger") ||
 					type.toLowerCase().contains("dart") ||
 					type.toLowerCase().contains("sling") ||
 					type.toLowerCase().contains("sword"))) {
-				System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
+				System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use this weapon.");
 				return;
 			}			
 			if (type.toLowerCase().contains("sword") &&
 					(type.toLowerCase().contains("bastard") ||
 							type.toLowerCase().contains("two-handed"))) {
-				System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this weapon.");
+				System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use this weapon.");
 				return;
 			}
 		}
@@ -129,17 +131,27 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 	
+	public boolean hasWeapon() {
+		boolean result = false;
+		
+		if (this.weapon != null) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
 	public void buyArmor(String type) {
-		if (this.getCharacterClass() == CharacterClass.MAGIC_USER || this.getCharacterClass() == CharacterClass.ILLUSIONIST) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot wear armor.");
+		if (this.getMobileObjectClass() == MobileObjectClass.MAGIC_USER || this.getMobileObjectClass() == MobileObjectClass.ILLUSIONIST) {
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot wear armor.");
 			return;
 		}
 		
-		if ((this.getCharacterClass() == CharacterClass.DRUID ||
-				this.getCharacterClass() == CharacterClass.THIEF ||
-				this.getCharacterClass() == CharacterClass.ASSASSIN) &&
+		if ((this.getMobileObjectClass() == MobileObjectClass.DRUID ||
+				this.getMobileObjectClass() == MobileObjectClass.THIEF ||
+				this.getMobileObjectClass() == MobileObjectClass.ASSASSIN) &&
 				!type.toLowerCase().contains("leather")) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot wear this armor.");
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot wear this armor.");
 			return;
 		}
 		
@@ -154,15 +166,15 @@ public class Character extends MobileObject implements Serializable {
 	}
 
 	public void buyShield(String type) {
-		if (this.getCharacterClass() == CharacterClass.MAGIC_USER || 
-				this.getCharacterClass() == CharacterClass.ILLUSIONIST || 
-				this.getCharacterClass() == CharacterClass.THIEF) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use a shield.");
+		if (this.getMobileObjectClass() == MobileObjectClass.MAGIC_USER || 
+				this.getMobileObjectClass() == MobileObjectClass.ILLUSIONIST || 
+				this.getMobileObjectClass() == MobileObjectClass.THIEF) {
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use a shield.");
 			return;
 		}
 
-		if (this.getCharacterClass() == CharacterClass.DRUID && !type.toLowerCase().contains("wooden")) {
-			System.out.println("The " + this.getCharacterClass().toString().toLowerCase() + " class cannot use this shield.");
+		if (this.getMobileObjectClass() == MobileObjectClass.DRUID && !type.toLowerCase().contains("wooden")) {
+			System.out.println("The " + this.getMobileObjectClass().toString().toLowerCase() + " class cannot use this shield.");
 			return;
 		}
 		
@@ -178,10 +190,19 @@ public class Character extends MobileObject implements Serializable {
 			System.out.println(this.name + " does not have enough gold to buy " + type);
 		}
 	}
+
+	public void combatAction(MobileObject target) {
+		if (this.hasSpell()) {
+			this.combatAction("cast " + this.getHighestDamageSpell(), target);			
+		} else {
+			this.combatAction("melee", target);
+		}
+	}
 	
 	public void combatAction(String action, MobileObject target) {
 		String spell;
 		String targetName = "";
+		int damage;
 		
 		if (target instanceof Monster) {
 			Monster monster = (Monster) target;
@@ -194,17 +215,22 @@ public class Character extends MobileObject implements Serializable {
 		if (action.toLowerCase().contains("cast")) {
 			spell = action.substring(5);
 			if (this.hasSpell(spell)) {
-				System.out.println(this.name + " casts spell on " + targetName + " for " +
-						Integer.toString(super.castSpell("Magic Missile", target)) + " damage.");
+				System.out.println(this.getName() + " casts " + spell + " on " + targetName + " for " +
+						Integer.toString(super.castSpell(spell, target)) + " damage.");
 				removeSpell(spell);
 			} else {
-				System.out.println(this.name + " does not have this spell memorized.");
+				System.out.println(this.getName() + " does not have this spell memorized.");
 			}
 		} else if (action.toLowerCase().contains("melee") || action.isEmpty()) {
-			System.out.println(this.name + " strikes " + targetName + " for " + 
-					Integer.toString(super.strikeMelee(target, 
-							this.weapon.getDamageLow(target.getSize()), this.weapon.getDamageHigh(target.getSize()), 
-							this.weapon.getDamageBonus())) + " damage.");
+			damage = super.strikeMelee(target, 
+					this.weapon.getDamageLow(target.getSize()), this.weapon.getDamageHigh(target.getSize()), 
+					this.weapon.getDamageBonus());
+			if (damage == 0) {
+				System.out.println(this.getName() + " misses!");
+			} else {
+				System.out.println(this.getName() + " strikes " + targetName + " for " + 
+						Integer.toString(damage) + " damage.");
+			}
 		}
 	}
 	
@@ -213,13 +239,20 @@ public class Character extends MobileObject implements Serializable {
 		
 		characterToString = "Character name: " + getName() + "\n";
 		characterToString += "Race: " + getRace() + "\n";
-		characterToString += "Class: " + getCharacterClass().toString() + "\n";
+		characterToString += "Class: " + getMobileObjectClass().toString() + "\n";
 		characterToString += "Level: " + Integer.toString(getLevel()) + "\n";
 		characterToString += "Armor class: " + Integer.toString(getArmorClass()) + "\n";
 		characterToString += "Hit Points: " + Integer.toString(getHitPoints()) + "\n";
+		if (this.hasWeapon()) {
+			characterToString += "Damage: " + Integer.toString(this.weapon.getDamageLow(TargetSize.MEDIUM)) + 
+									"-" + Integer.toString(this.weapon.getDamageHigh(TargetSize.MEDIUM));
+			if (this.weapon.getDamageBonus() > 0) {
+				characterToString += "+" + Integer.toString(this.weapon.getDamageBonus());
+			}
+			characterToString += "\n";
+		}		
 		characterToString += "Experience: " + Integer.toString(getExperience()) + "\n";
 		characterToString += "Money: " + Float.toString(getGoldPieces()) + "\n";
-		//characterToString += this.weapon.toString();
 		
 		return characterToString;
 	}

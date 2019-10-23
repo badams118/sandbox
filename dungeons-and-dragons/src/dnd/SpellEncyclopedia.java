@@ -9,11 +9,16 @@ public class SpellEncyclopedia {
 	
 	public SpellEncyclopedia() {
 		spells = new HashMap<String, Spell>();
-		List<CharacterClass> characterClasses = new ArrayList<CharacterClass>();
+		HashMap<MobileObjectClass, Integer> classLevels = new HashMap<MobileObjectClass, Integer>();
+
+		classLevels.put(MobileObjectClass.CLERIC, 1);
+		classLevels.put(MobileObjectClass.DRUID, 2);
+		spells.put("Cure Light Wounds", new Spell("Cure Light Wounds", 0, classLevels, 1, 8, 0, 0, null));
+		classLevels.clear();
 		
-		characterClasses.add(CharacterClass.MAGIC_USER);
-		spells.put("Magic Missile", new Spell("Magic Missile", 1, 0, characterClasses, 0, 0, 2, 5, null));
-		characterClasses.clear();
+		classLevels.put(MobileObjectClass.MAGIC_USER, 1);
+		spells.put("Magic Missile", new Spell("Magic Missile", 0, classLevels, 0, 0, 2, 5, null));
+		classLevels.clear();
 	}
 	
 	public static Spell getSpell(String type) {

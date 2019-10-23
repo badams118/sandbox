@@ -3,88 +3,95 @@ package dnd;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import org.junit.Assert;
+
 import java.util.Random;
 
 public class CombatEngine {
-	private HashMap<String, Monster> monsters;
-	private HashMap<String, Character> characters;
-
-	public CombatEngine(Encounter encounter, Party party) {
-		this.monsters = new HashMap<String, Monster>(encounter.getMonsters());
-		this.characters = new HashMap<String, Character>(party.getCharacters());		
-	}
+	private static HashMap<String, Monster> monsters;
+	private static HashMap<String, Character> characters;
+	private static Iterator<Entry<String, Monster>> encounterIterator;
+	private static Iterator<Entry<String, Character>> partyIterator;
+	private static Monster currentMonster;
+	private static Character currentCharacter;
+	private static Monster encounterTarget;
+	private static Character partyTarget;
 	
 	public static HashMap<String, Character> doCombat(Encounter encounter, Party party) {
-		HashMap<String, Monster> monsters = encounter.getMonsters();
-		HashMap<String, Character> characters = party.getCharacters();
-		Iterator<Entry<String, Monster>> encounterIterator;
-		Iterator<Entry<String, Character>> partyIterator;
-		//HashMap.Entry<String, Monster> encounterEntry;
-		//HashMap.Entry<String, Character> partyEntry;
-		Monster currentMonster;
-		Character currentCharacter;
-		Monster encounterTarget = (Monster) getLowestAC(new HashMap<String, MobileObject>(monsters));
-		Character partyTarget = (Character) getLowestAC(new HashMap<String, MobileObject>(characters));
+		monsters = encounter.getMonsters();
+		characters = party.getCharacters();
+		encounterIterator = monsters.entrySet().iterator();
+		partyIterator = characters.entrySet().iterator();
+		encounterTarget = (Monster) getLowestAC(new HashMap<String, MobileObject>(monsters));
+		partyTarget = (Character) getLowestAC(new HashMap<String, MobileObject>(characters));
+		
+		System.out.println("Party target:");
+		System.out.println(partyTarget.toString());
+		
+		System.out.println("Encounter target:");
+		System.out.println(encounterTarget.toString());
+
+		if (new Random().nextBoolean()) {
+			System.out.println("Party has initiative.\n");
+			
+			combatRound("party");
+		} else {
+			System.out.println("Encounter has initiative.\n");
+		}
+		
+		while (true) {
+			combatRound("encounter");
+			combatRound("party");
+			
+			if (monsters.isEmpty() || characters.isEmpty()) {
+				break;
+			}
+		}
 		
 		System.out.println(partyTarget.toString());
 
-		if (new Random().nextBoolean()) {
+		return party.getCharacters();
+	}	
+
+	private static void combatRound(String attacker) {
+		if (attacker.equals("party")) {
 			partyIterator = characters.entrySet().iterator();
 			while (partyIterator.hasNext()) {
 				currentCharacter = partyIterator.next().getValue();
-				currentCharacter.combatAction("melee", encounterTarget);
+				currentCharacter.combatAction(encounterTarget);
 				System.out.println(encounterTarget.getType() + " hit points: " + 
 						Integer.toString(encounterTarget.getHitPoints()) + "\n");
 			}
 			
 			if (encounterTarget.getHitPoints() <= 0) {
 				System.out.println(encounterTarget.getType() + " has died.\n");
+				monsters.remove(encounterTarget.getType());
+				System.out.println("Monsters hashmap size: " + monsters.size() + "\n");
+				if (!monsters.isEmpty()) {
+					encounterTarget = (Monster) getLowestAC(new HashMap<String, MobileObject>(monsters));
+					System.out.println("New target: " + encounterTarget.getType() + "\n");
+				}
 			}
-		}
-		
-		while (true) {	
+		} else if (attacker.equals("encounter")) {
 			encounterIterator = monsters.entrySet().iterator();
 			while (encounterIterator.hasNext()) {
 				currentMonster = encounterIterator.next().getValue();
-				System.out.println(currentMonster.getType() + " strikes " + partyTarget.getName() + " for " + 
-						Integer.toString(currentMonster.strikeMelee(partyTarget)) + " damage.");
+				currentMonster.combatAction(partyTarget);
 			}
 			
 			if (partyTarget.getHitPoints() <= 0) {
-				System.out.println("\n" + partyTarget.getName() + " has died.\n");
-				break;
+				System.out.println(partyTarget.getName() + " has died.\n");
+				characters.remove(partyTarget.getName());
+				System.out.println("Characters hashmap size: " + characters.size() + "\n");
+				if (!characters.isEmpty()) {
+					partyTarget = (Character) getLowestAC(new HashMap<String, MobileObject>(characters));
+					System.out.println("New target: " + partyTarget.getName() + "\n");
+				}
 			}
+		} else {
+			System.out.println("Error in combatRound, unrecognized attacker: " + attacker);
 		}
-		
-		System.out.println(partyTarget.toString());
-			
-//		if (new Random().nextBoolean()) {
-//			party.getCharacter("Joe Test").combatAction("melee", encounter.getMonster("skeleton 01"));
-//			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
-//					Integer.toString(encounter.getMonster("skeleton 01").getHitPoints()) + "\n");
-//		}
-//		while (true) {	
-//			if (encounter.getMonster("skeleton 01").getHitPoints() <= 0) {
-//				System.out.println(encounter.getMonster("skeleton 01").getType() + " has died.\n");
-//				party.getCharacter("Joe Test").addExperience(encounter.getMonster("skeleton 01").getExperience());
-//				break;
-//			}
-//			
-//			System.out.println(encounter.getMonster("skeleton 01").getType() + " strikes " + party.getCharacter("Joe Test").getName() + " for " + 
-//					Integer.toString(encounter.getMonster("skeleton 01").strikeMelee(party.getCharacter("Joe Test"))) + " damage.");
-//			System.out.println(party.getCharacter("Joe Test").getName() + " hit points: " + 
-//					Integer.toString(party.getCharacter("Joe Test").getHitPoints()) + "\n");
-//			if (party.getCharacter("Joe Test").getHitPoints() <= 0 || encounter.getMonster("skeleton 01").getHitPoints() <= 0) {
-//				System.out.println(party.getCharacter("Joe Test").getName() + " has died.\n");
-//				break;
-//			}
-//
-//			party.getCharacter("Joe Test").combatAction("melee", encounter.getMonster("skeleton 01"));
-//			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
-//					Integer.toString(encounter.getMonster("skeleton 01").getHitPoints()) + "\n");
-//		}
-		
-		return party.getCharacters();
 	}
 	
 	private static MobileObject getLowestAC(HashMap<String, MobileObject> mobs) {
@@ -99,11 +106,22 @@ public class CombatEngine {
 			currentMob = (MobileObject) entry.getValue();
 			if (currentMob.getArmorClass() < lowestACMob.getArmorClass()) {
 				lowestACMob = currentMob;
+			} else if (currentMob.getArmorClass() == lowestACMob.getArmorClass()) {
+				if (currentMob.getHitPoints() > lowestACMob.getHitPoints()) {
+					lowestACMob = currentMob;
+				}
 			}
 			
 			iterator.remove();
 		}
 		
 		return lowestACMob;
+	}
+	
+	private static MobileObject getHealTarget(HashMap<String, MobileObject> mobs) {
+		MobileObject currentMob;
+		MobileObject mostDamagedMob = new Monster();
+		
+		return mostDamagedMob;
 	}
 }

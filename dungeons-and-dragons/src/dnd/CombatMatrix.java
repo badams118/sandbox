@@ -5,23 +5,23 @@ public class CombatMatrix {
 		int[][] hitMatrix = new int[21][2];
 		
 		if ((race == Race.HALFLING || race == Race.HUMAN) && level == 0) {
-			hitMatrix = getHitMatrix(CharacterClass.FIGHTER, level);
+			hitMatrix = getHitMatrix(MobileObjectClass.FIGHTER, level);
 		} else {
-			hitMatrix = getHitMatrix(CharacterClass.NONE, level);
+			hitMatrix = getHitMatrix(MobileObjectClass.NONE, level);
 		}
 		
 		return hitMatrix;
 	}
 
-	public static int[][] getHitMatrix(CharacterClass characterClass, int hdLevel) { 
+	public static int[][] getHitMatrix(MobileObjectClass characterClass, int hdLevel) { 
 		int[][] hitMatrix = new int[21][2];
 		
-		hitMatrix = getHitMatrix(CharacterClass.FIGHTER, hdLevel, 0);
+		hitMatrix = getHitMatrix(MobileObjectClass.FIGHTER, hdLevel, 0);
 		
 		return hitMatrix;
 	}
 	
-	public static int[][] getHitMatrix(CharacterClass characterClass, int hdLevel, int hdModifier) { 
+	public static int[][] getHitMatrix(MobileObjectClass characterClass, int hdLevel, int hdModifier) { 
 		int[][] hitMatrix = new int[21][2];
 		
 		switch (characterClass) {

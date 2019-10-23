@@ -42,6 +42,7 @@ public class Merchantile {
 		weapons.put("Fauchard", new Weapon("Fauchard", 3, 1, 6, 1, 8));
 		weapons.put("Fauchard-Fork", new Weapon("Fauchard-Fork", 8, 1, 8, 1, 10));
 		weapons.put("Flail, footman's", new Weapon("Flail, footman's", 3, 2, 7, 2, 8));
+		weapons.put("Flail", new Weapon("Flail", 3, 2, 7, 2, 8));
 		weapons.put("Flail, horseman's", new Weapon("Flail, hourseman's", 8, 2, 5, 2, 5));
 		weapons.put("Fork, Military", new Weapon("Fork, Military", 4, 1, 8, 2, 8));
 		weapons.put("Glaive", new Weapon("Glaive", 6, 1, 6, 1, 10));
@@ -60,6 +61,7 @@ public class Merchantile {
 		weapons.put("Lance (heavy horse)", new Weapon("Lance (heavy horse)", 6, 3, 9, 3, 18));
 		weapons.put("Lochaber Axe", new Weapon("Lochaber Axe", 7, 2, 8, 2, 8));
 		weapons.put("Mace, footman's", new Weapon("Mace, footman's", 8, 2, 7, 1, 6));
+		weapons.put("Mace", new Weapon("Mace", 8, 2, 7, 1, 6));
 		weapons.put("Mace, horseman's", new Weapon("Mace, horseman's", 4, 1, 6, 1, 4));
 		weapons.put("Morning Star", new Weapon("Morning Star", 5, 2, 8, 2, 7));
 		weapons.put("Partisan", new Weapon("Partisan", 10, 1, 6, 2, 7));

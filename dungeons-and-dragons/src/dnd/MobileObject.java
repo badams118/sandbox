@@ -1,16 +1,17 @@
 package dnd;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Map.Entry;
 
-public abstract class MobileObject implements Serializable {
+public class MobileObject implements Serializable {
 	private static final long serialVersionUID = -1211342146528001795L;
 	private int armorClass;
 	private int hitPoints;
-	private CharacterClass characterClass;
+	private int maxHitPoints;
+	private MobileObjectClass mobileObjectClass;
 	protected int experience;
 	private int level;
 	private TargetSize size;
@@ -33,8 +34,12 @@ public abstract class MobileObject implements Serializable {
 		this.hitPoints = hitPoints;
 	}
 	
-	public void setCharacterClass(CharacterClass characterClass) {
-		this.characterClass = characterClass;
+	public void setMaxHitPoints(int hitPoints) {
+		this.maxHitPoints = hitPoints;
+	}
+	
+	public void setCharacterClass(MobileObjectClass mobileObjectClass) {
+		this.mobileObjectClass = mobileObjectClass;
 	}
 	
 	public void setLevel(int level) {
@@ -49,10 +54,10 @@ public abstract class MobileObject implements Serializable {
 		this.size = size;
 	}
 	
-	public void populateHitMatrix(CharacterClass characterClass, int level) {
-		this.hitMatrix = CombatMatrix.getHitMatrix(characterClass, level);
+	public void populateHitMatrix(MobileObjectClass mobileObjectClass, int level) {
+		this.hitMatrix = CombatMatrix.getHitMatrix(mobileObjectClass, level);
 	}
-	
+
 	public int strikeMelee(MobileObject target, int damageLow, int damageHigh) {
 		return strikeMelee(target, damageLow, damageHigh, 0);
 	}
@@ -71,7 +76,7 @@ public abstract class MobileObject implements Serializable {
 	private boolean isHit(MobileObject target) {
 		Random random = new Random();
 		int roll = random.nextInt(20) + 1;
-		boolean isHit;
+		boolean isHit = false;
 		
 		System.out.println("Attack roll " + Integer.toString(roll));
 		System.out.println("Target armor class: " + this.hitMatrix[target.armorClass + 10][0]);
@@ -79,8 +84,6 @@ public abstract class MobileObject implements Serializable {
 		
 		if (roll >= this.hitMatrix[target.armorClass + 10][1]) {
 			isHit = true;
-		} else {
-			isHit = false;
 		}
 		
 		return isHit;
@@ -93,6 +96,33 @@ public abstract class MobileObject implements Serializable {
 	public boolean hasSpell(String type) {
 		Spell spell = SpellEncyclopedia.getSpell(type);
 		return spellBook.containsValue(spell);
+	}
+	
+	public boolean hasSpell() {
+		boolean result = false;
+		
+		if (spellBook.size() > 0) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	public String getHighestDamageSpell() {
+		Iterator<Entry<String, Spell>> iterator = spellBook.entrySet().iterator();
+		HashMap.Entry<String, Spell> entry;
+		Spell currentSpell;
+		Spell highestDamageSpell = new Spell();
+		
+		while (iterator.hasNext()) {
+			entry = (HashMap.Entry<String, Spell>) iterator.next();
+			currentSpell = (Spell) entry.getValue();
+			if (currentSpell.getDamageHigh() > highestDamageSpell.getDamageHigh()) {
+				highestDamageSpell = currentSpell;
+			}
+		}
+		
+		return highestDamageSpell.getName();
 	}
 	
 	public int castSpell(String type, MobileObject target) {
@@ -130,8 +160,8 @@ public abstract class MobileObject implements Serializable {
 		return this.hitPoints;
 	}
 	
-	public CharacterClass getCharacterClass() {
-		return this.characterClass;
+	public MobileObjectClass getMobileObjectClass() {
+		return this.mobileObjectClass;
 	}
 	
 	public int getLevel() {

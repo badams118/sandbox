@@ -1,13 +1,10 @@
 package dnd;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.Random;
 
 import org.junit.Assert;
@@ -39,10 +36,13 @@ class DndTest {
 
 	@Test
 	void testCharacterCreation() {
+		System.out.println("********************************************************************************");
+		System.out.println("Begin character creation test");
+		System.out.println("********************************************************************************\n");
         FileOutputStream file;
         ObjectOutputStream out;
 		
-		Character joeTest = new Character("Joe_Test", Race.HUMAN, CharacterClass.FIGHTER);
+		Character joeTest = new Character("Joe_Test", Race.HUMAN, MobileObjectClass.FIGHTER);
 		joeTest.buyWeapon("Sword");
 		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
 		joeTest.buyArmor("Chain");
@@ -65,7 +65,7 @@ class DndTest {
 			Assert.fail("IOException");
         }
         
-		Character stanTest = new Character("Stan_Test", Race.HUMAN, CharacterClass.MAGIC_USER);
+		Character stanTest = new Character("Stan_Test", Race.HUMAN, MobileObjectClass.MAGIC_USER);
 		stanTest.buyWeapon("Dagger");
 		stanTest.memorizeSpell("Magic Missile");
 		Assert.assertTrue(stanTest.hasSpell("Magic Missile"));
@@ -89,7 +89,11 @@ class DndTest {
 	}
 
 	@Test
-	void testMeleeCombat() { 
+	void testMeleeCombat() {
+		System.out.println("********************************************************************************");
+		System.out.println("Begin melee combat test");
+		System.out.println("********************************************************************************\n");
+		
 		Character joeTest = null;
 		Monster skeleton = new Monster("skeleton", 7, 1, 1, 6);
 		
@@ -139,6 +143,10 @@ class DndTest {
 	
 	@Test
 	void testSpellCombat() {
+		System.out.println("********************************************************************************");
+		System.out.println("Begin spell combat test");
+		System.out.println("********************************************************************************\n");
+		
 		Character stanTest = null;
 		Monster skeleton = new Monster("skeleton", 7, 1, 1, 6);
 		
@@ -198,12 +206,16 @@ class DndTest {
 	
 	@Test
 	void testEncounter() {
+		System.out.println("********************************************************************************");
+		System.out.println("Begin encounter test");
+		System.out.println("********************************************************************************\n");
 		Monster skeleton01 = new Monster("skeleton 01", 7, 1, 1, 6);
 		Monster skeleton02 = new Monster("skeleton 02", 7, 1, 1, 6);
+		Monster skeleton03 = new Monster("skeleton 03", 7, 1, 1, 6);
 		
-		Encounter encounter = new Encounter(skeleton01, skeleton02);
+		Encounter encounter = new Encounter(skeleton01, skeleton02, skeleton03);
 
-		Character joeTest = new Character("Joe Test", Race.HUMAN, CharacterClass.FIGHTER);
+		Character joeTest = new Character("Joe_Test", Race.HUMAN, MobileObjectClass.FIGHTER);
 		joeTest.buyWeapon("Sword");
 		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
 		joeTest.buyArmor("Chain");
@@ -211,39 +223,18 @@ class DndTest {
 		joeTest.buyShield("Shield");
 		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
 		
-		Character stanTest = new Character("Stan_Test", Race.HUMAN, CharacterClass.MAGIC_USER);
+		Character stanTest = new Character("Stan_Test", Race.HUMAN, MobileObjectClass.MAGIC_USER);
 		stanTest.buyWeapon("Dagger");
 		stanTest.memorizeSpell("Magic Missile");
 		Assert.assertTrue(stanTest.hasSpell("Magic Missile"));
+		
+		Character larryTest = new Character("Larry_Test", Race.DWARF, MobileObjectClass.CLERIC);
+		larryTest.buyWeapon("Flail");
+		larryTest.buyArmor("Chain");
+		larryTest.buyShield("Shield");
 			
-		Party party = new Party(joeTest, stanTest);
+		Party party = new Party(joeTest, stanTest, larryTest);
 		
 		party.updateCharacters(CombatEngine.doCombat(encounter, party));
-		
-//		if (new Random().nextBoolean()) {
-//			party.getCharacter("Joe Test").combatAction("melee", encounter.getMonster("skeleton 01"));
-//			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
-//					Integer.toString(encounter.getMonster("skeleton 01").getHitPoints()) + "\n");
-//		}
-//		while (true) {	
-//			if (encounter.getMonster("skeleton 01").getHitPoints() <= 0) {
-//				System.out.println(encounter.getMonster("skeleton 01").getType() + " has died.\n");
-//				party.getCharacter("Joe Test").addExperience(encounter.getMonster("skeleton 01").getExperience());
-//				break;
-//			}
-//			
-//			System.out.println(encounter.getMonster("skeleton 01").getType() + " strikes " + party.getCharacter("Joe Test").getName() + " for " + 
-//					Integer.toString(encounter.getMonster("skeleton 01").strikeMelee(party.getCharacter("Joe Test"))) + " damage.");
-//			System.out.println(party.getCharacter("Joe Test").getName() + " hit points: " + 
-//					Integer.toString(party.getCharacter("Joe Test").getHitPoints()) + "\n");
-//			if (party.getCharacter("Joe Test").getHitPoints() <= 0 || encounter.getMonster("skeleton 01").getHitPoints() <= 0) {
-//				System.out.println(party.getCharacter("Joe Test").getName() + " has died.\n");
-//				break;
-//			}
-//
-//			party.getCharacter("Joe Test").combatAction("melee", encounter.getMonster("skeleton 01"));
-//			System.out.println(encounter.getMonster("skeleton 01").getType() + " hit points: " + 
-//					Integer.toString(encounter.getMonster("skeleton 01").getHitPoints()) + "\n");
-//		}
 	}
 }

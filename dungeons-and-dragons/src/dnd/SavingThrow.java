@@ -19,17 +19,17 @@ public enum SavingThrow {
 		boolean isSaved = false;
 		
 		int level = target.getLevel();
-		CharacterClass characterClass = target.getCharacterClass();
+		MobileObjectClass mobileObjectClass = target.getMobileObjectClass();
 		
 		int roll = new Random().nextInt(20) + 1;
 		
-		if (characterClass == CharacterClass.PALADIN || characterClass == CharacterClass.ANTI_PALADIN) {
+		if (mobileObjectClass == MobileObjectClass.PALADIN || mobileObjectClass == MobileObjectClass.ANTI_PALADIN) {
 			roll = roll + 2;
 		}
 		
 		System.out.println("Saving throw roll: " + roll);
 				
-		switch (characterClass) {
+		switch (mobileObjectClass) {
 		case DRUID: 
 		case CLERIC: 
 			switch (attack) {

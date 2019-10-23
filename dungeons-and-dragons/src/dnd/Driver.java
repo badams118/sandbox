@@ -16,7 +16,7 @@ public class Driver {
 		
 		Scanner scanner = new Scanner(System.in);
 		
-		Character joe = new Character("Joe", Race.HUMAN, CharacterClass.MAGIC_USER);
+		Character joe = new Character("Joe", Race.HUMAN, MobileObjectClass.MAGIC_USER);
 		System.out.println(joe.toString());
 //		joe.buyWeapon("Sword, long");
 //		joe.buyArmor("Chain");

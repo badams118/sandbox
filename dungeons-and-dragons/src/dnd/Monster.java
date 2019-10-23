@@ -1,8 +1,7 @@
 package dnd;
 
-import java.util.HashMap;
-
 public class Monster extends MobileObject {
+	private static final long serialVersionUID = 403439036521497069L;
 	private String type;
 	private int hitDice;
 	private int hitDiceModifier;
@@ -16,20 +15,23 @@ public class Monster extends MobileObject {
 	}
 
 	public Monster(String type, int armorClass, int hitDice, int damageLow, int damageHigh) {
-		this(type, armorClass, hitDice, 0, damageLow, damageHigh, CharacterClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
+		this(type, armorClass, hitDice, 0, damageLow, damageHigh, MobileObjectClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
 	}
 	
 	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
-			CharacterClass characterClass, int level, int morale) {
+			MobileObjectClass characterClass, int level, int morale) {
 		this(type, armorClass, hitDice, hitDiceModifier, damageLow, damageHigh, characterClass, level, morale, TargetSize.MEDIUM);
 	}
 	
 	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
-			CharacterClass characterClass, int level, int morale, TargetSize size) {
+			MobileObjectClass characterClass, int level, int morale, TargetSize size) {
+		int hitPoints = 4 * hitDice + hitDiceModifier;
+		
 		super.setArmorClass(armorClass);
 		this.hitDice = hitDice;
 		this.hitDiceModifier = hitDiceModifier;
-		super.setHitPoints(4 * hitDice + hitDiceModifier);
+		super.setHitPoints(hitPoints);
+		super.setMaxHitPoints(hitPoints);
 		super.setCharacterClass(characterClass);
 		super.setLevel(level);
 		this.type = type;
@@ -41,6 +43,48 @@ public class Monster extends MobileObject {
 		this.experience = calculateExperience();
 		super.populateHitMatrix(characterClass, level);
 		super.setSize(size);
+	}
+	
+
+	public void combatAction(MobileObject target) {
+		if (this.hasSpell()) {
+			this.combatAction("cast " + this.getHighestDamageSpell(), target);			
+		} else {
+			this.combatAction("melee", target);
+		}
+	}
+	
+	public void combatAction(String action, MobileObject target) {
+		String spell;
+		String targetName = "";
+		int damage;
+		
+		if (target instanceof Monster) {
+			Monster monster = (Monster) target;
+			targetName = monster.getType();
+		} else if (target instanceof Character) {
+			Character character = (Character) target;
+			targetName = character.getName();
+		}
+		
+		if (action.toLowerCase().contains("cast")) {
+			spell = action.substring(5);
+			if (this.hasSpell(spell)) {
+				System.out.println(this.getType() + " casts " + spell + " on " + targetName + " for " +
+						Integer.toString(super.castSpell(spell, target)) + " damage.\n");
+				removeSpell(spell);
+			} else {
+				System.out.println(this.getType() + " does not have this spell memorized.");
+			}
+		} else if (action.toLowerCase().contains("melee") || action.isEmpty()) {
+			damage = this.strikeMelee(target);
+			if (damage == 0) {
+				System.out.println(this.getType() + " misses!\n");
+			} else {
+				System.out.println(this.getType() + " strikes " + targetName + " for " + 
+						Integer.toString(damage) + " damage.\n");
+			}
+		}
 	}
 	
 	public int strikeMelee(MobileObject target) {

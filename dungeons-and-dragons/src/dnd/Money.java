@@ -7,10 +7,10 @@ public enum Money {
 	GOLD,
 	PLATINUM;
 	
-	public static float setMoney(CharacterClass characterClass) {
+	public static float setMoney(MobileObjectClass mobileObjectClass) {
 		float goldPieces = 0;
 		
-		switch (characterClass) {
+		switch (mobileObjectClass) {
 		case DRUID: 
 		case CLERIC: 
 			goldPieces = 90;
