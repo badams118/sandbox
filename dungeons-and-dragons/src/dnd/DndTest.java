@@ -232,6 +232,8 @@ class DndTest {
 		larryTest.buyWeapon("Flail");
 		larryTest.buyArmor("Chain");
 		larryTest.buyShield("Shield");
+		larryTest.memorizeSpell("Cure Light Wounds");
+		Assert.assertTrue(larryTest.hasSpell("Cure Light Wounds"));
 			
 		Party party = new Party(joeTest, stanTest, larryTest);
 		

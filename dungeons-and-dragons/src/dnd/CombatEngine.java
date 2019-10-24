@@ -16,7 +16,7 @@ public class CombatEngine {
 	private static Monster currentMonster;
 	private static Character currentCharacter;
 	private static Monster encounterTarget;
-	private static Character partyTarget;
+	private static Character partyTarget, partyHealTarget;
 	
 	public static HashMap<String, Character> doCombat(Encounter encounter, Party party) {
 		monsters = encounter.getMonsters();
@@ -25,6 +25,11 @@ public class CombatEngine {
 		partyIterator = characters.entrySet().iterator();
 		encounterTarget = (Monster) getLowestAC(new HashMap<String, MobileObject>(monsters));
 		partyTarget = (Character) getLowestAC(new HashMap<String, MobileObject>(characters));
+		partyHealTarget = (Character) getHealTarget(new HashMap<String, MobileObject>(characters));
+		
+		if (partyHealTarget == null) {
+			partyHealTarget = new Character();
+		}
 		
 		System.out.println("Party target:");
 		System.out.println(partyTarget.toString());
@@ -59,7 +64,7 @@ public class CombatEngine {
 			partyIterator = characters.entrySet().iterator();
 			while (partyIterator.hasNext()) {
 				currentCharacter = partyIterator.next().getValue();
-				currentCharacter.combatAction(encounterTarget);
+				currentCharacter.combatAction(encounterTarget, partyHealTarget);
 				System.out.println(encounterTarget.getType() + " hit points: " + 
 						Integer.toString(encounterTarget.getHitPoints()) + "\n");
 			}
@@ -89,6 +94,8 @@ public class CombatEngine {
 					System.out.println("New target: " + partyTarget.getName() + "\n");
 				}
 			}
+			
+			partyHealTarget = (Character) getHealTarget(new HashMap<String, MobileObject>(characters));
 		} else {
 			System.out.println("Error in combatRound, unrecognized attacker: " + attacker);
 		}
@@ -121,6 +128,21 @@ public class CombatEngine {
 	private static MobileObject getHealTarget(HashMap<String, MobileObject> mobs) {
 		MobileObject currentMob;
 		MobileObject mostDamagedMob = new Monster();
+		Iterator<Entry<String, MobileObject>> iterator = mobs.entrySet().iterator();
+		HashMap.Entry<String, MobileObject> entry;
+				
+		while (iterator.hasNext()) {
+			entry = (HashMap.Entry<String, MobileObject>) iterator.next();
+			currentMob = (MobileObject) entry.getValue(); 
+			
+			if (currentMob.getDamage() > mostDamagedMob.getDamage()) {
+				mostDamagedMob = currentMob;
+			}
+		}
+		
+		if (mostDamagedMob.getDamage() == 0) { 
+			mostDamagedMob = null;
+		}
 		
 		return mostDamagedMob;
 	}

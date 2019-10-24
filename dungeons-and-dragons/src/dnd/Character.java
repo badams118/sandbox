@@ -191,16 +191,22 @@ public class Character extends MobileObject implements Serializable {
 		}
 	}
 
-	public void combatAction(MobileObject target) {
-		if (this.hasSpell()) {
-			this.combatAction("cast " + this.getHighestDamageSpell(), target);			
+	public void combatAction(MobileObject attackTarget, MobileObject healTarget) {
+		Spell healSpell = this.getHighestHealingSpell();
+		Spell attackSpell = this.getHighestDamageSpell();
+				
+		if (healSpell != null && healTarget != null && healTarget.getDamage() > 0) {
+			this.combatAction("cast " + this.getHighestHealingSpell(), healTarget);
+		} else if (attackSpell != null && attackTarget != null) {
+			this.combatAction("cast " + this.getHighestDamageSpell(), attackTarget);
 		} else {
-			this.combatAction("melee", target);
-		}
+			this.combatAction("melee", attackTarget);
+		}		
 	}
 	
 	public void combatAction(String action, MobileObject target) {
-		String spell;
+		String spellName;
+		Spell spell;
 		String targetName = "";
 		int damage;
 		
@@ -213,14 +219,22 @@ public class Character extends MobileObject implements Serializable {
 		}
 		
 		if (action.toLowerCase().contains("cast")) {
-			spell = action.substring(5);
-			if (this.hasSpell(spell)) {
-				System.out.println(this.getName() + " casts " + spell + " on " + targetName + " for " +
-						Integer.toString(super.castSpell(spell, target)) + " damage.");
-				removeSpell(spell);
+			spellName = action.substring(5);
+			spell = SpellEncyclopedia.getSpell(spellName);
+			
+			if (this.hasSpell(spellName)) {
+				if (spell.getHealHigh() > 0) {
+					System.out.println(this.getName() + " casts " + spellName + " on " + targetName + " for " +
+							Integer.toString(super.castSpell(spellName, target)) + " healing.");
+				} else {
+					System.out.println(this.getName() + " casts " + spellName + " on " + targetName + " for " +
+							Integer.toString(super.castSpell(spellName, target)) + " damage.");
+				}
+				removeSpell(spellName);
 			} else {
 				System.out.println(this.getName() + " does not have this spell memorized.");
 			}
+			
 		} else if (action.toLowerCase().contains("melee") || action.isEmpty()) {
 			damage = super.strikeMelee(target, 
 					this.weapon.getDamageLow(target.getSize()), this.weapon.getDamageHigh(target.getSize()), 
