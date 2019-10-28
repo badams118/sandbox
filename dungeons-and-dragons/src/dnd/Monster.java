@@ -15,17 +15,23 @@ public class Monster extends MobileObject {
 	}
 
 	public Monster(String type, int armorClass, int hitDice, int damageLow, int damageHigh) {
-		this(type, armorClass, hitDice, 0, damageLow, damageHigh, MobileObjectClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
+		this(type, armorClass, hitDice, 0, 0, damageLow, damageHigh, MobileObjectClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
+	}
+	
+	public Monster(String type, int armorClass, int hitDice, int hitPoints, int damageLow, int damageHigh) {
+		this(type, armorClass, hitDice, 0, hitPoints, damageLow, damageHigh, MobileObjectClass.NONE, hitDice, 50 + 5 * hitDice, TargetSize.MEDIUM);
 	}
 	
 	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
 			MobileObjectClass characterClass, int level, int morale) {
-		this(type, armorClass, hitDice, hitDiceModifier, damageLow, damageHigh, characterClass, level, morale, TargetSize.MEDIUM);
+		this(type, armorClass, hitDice, hitDiceModifier, 0, damageLow, damageHigh, characterClass, level, morale, TargetSize.MEDIUM);
 	}
 	
-	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int damageLow, int damageHigh, 
+	public Monster(String type, int armorClass, int hitDice, int hitDiceModifier, int hitPoints, int damageLow, int damageHigh, 
 			MobileObjectClass characterClass, int level, int morale, TargetSize size) {
-		int hitPoints = 4 * hitDice + hitDiceModifier;
+		if (hitPoints == 0) {
+			hitPoints = 4 * hitDice + hitDiceModifier;
+		}
 		
 		super.setArmorClass(armorClass);
 		this.hitDice = hitDice;

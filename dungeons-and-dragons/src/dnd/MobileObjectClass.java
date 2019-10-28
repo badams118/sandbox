@@ -79,6 +79,7 @@ public enum MobileObjectClass {
 			break;
 		case ANTI_PALADIN:
 		case PALADIN:
+		case BARD:
 		case FIGHTER:
 			if (level <= 9) {
 				hitPoints = 5 * level;

@@ -18,6 +18,7 @@ public enum Money {
 		case PALADIN:
 		case ANTI_PALADIN:
 		case RANGER:
+		case BARD:
 		case FIGHTER:
 			goldPieces = 100;
 			break;
@@ -28,6 +29,9 @@ public enum Money {
 		case ASSASSIN:
 		case THIEF:
 			goldPieces = 60;
+			break;
+		default: 
+			goldPieces = 0;
 			break;
 		}
 		

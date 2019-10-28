@@ -236,14 +236,18 @@ public class Character extends MobileObject implements Serializable {
 			}
 			
 		} else if (action.toLowerCase().contains("melee") || action.isEmpty()) {
-			damage = super.strikeMelee(target, 
-					this.weapon.getDamageLow(target.getSize()), this.weapon.getDamageHigh(target.getSize()), 
-					this.weapon.getDamageBonus());
-			if (damage == 0) {
-				System.out.println(this.getName() + " misses!");
+			if (this.hasWeapon()) {
+				damage = super.strikeMelee(target, 
+							this.weapon.getDamageLow(target.getSize()), this.weapon.getDamageHigh(target.getSize()), 
+							this.weapon.getDamageBonus());
+				if (damage == 0) {
+					System.out.println(this.getName() + " misses!");
+				} else {
+					System.out.println(this.getName() + " strikes " + targetName + " for " + 
+							Integer.toString(damage) + " damage.");
+				}
 			} else {
-				System.out.println(this.getName() + " strikes " + targetName + " for " + 
-						Integer.toString(damage) + " damage.");
+				System.out.println(this.getName() + " has no weapon!");
 			}
 		}
 	}

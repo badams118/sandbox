@@ -209,33 +209,61 @@ class DndTest {
 		System.out.println("********************************************************************************");
 		System.out.println("Begin encounter test");
 		System.out.println("********************************************************************************\n");
-		Monster skeleton01 = new Monster("skeleton 01", 7, 1, 1, 6);
-		Monster skeleton02 = new Monster("skeleton 02", 7, 1, 1, 6);
-		Monster skeleton03 = new Monster("skeleton 03", 7, 1, 1, 6);
+//		Monster(String type, int armorClass, int hitDice, int hitPoints, int damageLow, int damageHigh)
+//		Monster troglodyte01 = new Monster("troglodyte 01", 5, 2, 9, 1, 6);
+//		Monster troglodyte02 = new Monster("troglodyte 02", 5, 2, 9, 1, 6);
+//		Monster troglodyte03 = new Monster("troglodyte 03", 5, 2, 9, 1, 6);
+//		
+//		Encounter encounter = new Encounter(troglodyte01, troglodyte02, troglodyte03);
 		
-		Encounter encounter = new Encounter(skeleton01, skeleton02, skeleton03);
+		Monster giantFrog01 = new Monster("giant frog 01", 7, 2, 13, 1, 6);
+		Monster giantFrog02 = new Monster("giant frog 02", 7, 2, 10, 1, 6);
+		Monster giantFrog03 = new Monster("giant frog 03", 7, 1, 7, 1, 3);
+		Monster giantFrog04 = new Monster("giant frog 04", 7, 1, 6, 1, 3);
+		Monster giantFrog05 = new Monster("giant frog 05", 7, 1, 4, 1, 3);
+		Monster giantFrog06 = new Monster("giant frog 06", 7, 1, 4, 1, 3);
 
+		Encounter encounter = new Encounter(giantFrog01, giantFrog02, giantFrog03, giantFrog04, giantFrog05, giantFrog06);
+		
 		Character joeTest = new Character("Joe_Test", Race.HUMAN, MobileObjectClass.FIGHTER);
-		joeTest.buyWeapon("Sword");
-		Assert.assertEquals(joeTest.getWeapon().getType(), "Sword");
+		joeTest.buyWeapon("Sword, Bastard");
 		joeTest.buyArmor("Chain");
-		Assert.assertEquals(joeTest.getArmor().getType(), "Chain");
-		joeTest.buyShield("Shield");
-		Assert.assertEquals(joeTest.getShield().getType(), "Shield");
+		
+		Character danTest = new Character("Dan_Test", Race.HALF_ELF, MobileObjectClass.RANGER);
+		danTest.buyWeapon("Sword");
+		danTest.buyArmor("Chain");
+		danTest.buyShield("Shield");
 		
 		Character stanTest = new Character("Stan_Test", Race.HUMAN, MobileObjectClass.MAGIC_USER);
 		stanTest.buyWeapon("Dagger");
 		stanTest.memorizeSpell("Magic Missile");
 		Assert.assertTrue(stanTest.hasSpell("Magic Missile"));
 		
-		Character larryTest = new Character("Larry_Test", Race.DWARF, MobileObjectClass.CLERIC);
+		Character harryTest = new Character("Harry_Test", Race.HUMAN, MobileObjectClass.PALADIN);
+		harryTest.buyWeapon("Sword, Bastard");
+		harryTest.buyArmor("Chain");
+		stanTest.memorizeSpell("Lay On Hands");
+		
+		Character larryTest = new Character("Larry_Test", Race.HUMAN, MobileObjectClass.CLERIC);
 		larryTest.buyWeapon("Flail");
 		larryTest.buyArmor("Chain");
 		larryTest.buyShield("Shield");
 		larryTest.memorizeSpell("Cure Light Wounds");
 		Assert.assertTrue(larryTest.hasSpell("Cure Light Wounds"));
+
+		Character otisTest = new Character("Otis_Test", Race.HALFLING, MobileObjectClass.THIEF);
+		otisTest.buyWeapon("Sword");
+		otisTest.buyArmor("Leather");
+		
+		Character davidTest = new Character("David_Test", Race.HUMAN, MobileObjectClass.ASSASSIN);
+		davidTest.buyWeapon("Sword");
+		davidTest.buyArmor("Leather");
+
+		Character ernieTest = new Character("Ernie_Test", Race.HALF_ELF, MobileObjectClass.BARD);
+		ernieTest.buyWeapon("Sword, Bastard");
+		ernieTest.buyArmor("Chain");
 			
-		Party party = new Party(joeTest, stanTest, larryTest);
+		Party party = new Party(joeTest, danTest, stanTest, harryTest, larryTest, otisTest, davidTest, ernieTest);
 		
 		party.updateCharacters(CombatEngine.doCombat(encounter, party));
 	}

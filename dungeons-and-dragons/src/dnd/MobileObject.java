@@ -34,6 +34,10 @@ public class MobileObject implements Serializable {
 		return this.hitPoints;
 	}
 	
+	public int getMaxHitPoints() {
+		return this.maxHitPoints;
+	}
+	
 	public int getDamage() {
 		return this.maxHitPoints - this.hitPoints;
 	}
@@ -98,7 +102,14 @@ public class MobileObject implements Serializable {
 	}
 	
 	public void memorizeSpell(String type) {
-		spellBook.put(type, SpellEncyclopedia.getSpell(type));
+		Spell spell = SpellEncyclopedia.getSpell(type);
+		
+		if (type.equals("Lay On Hands")) {
+			spell.setDamageLow(spell.getDamageLow() * this.level);
+			spell.setDamageHigh(spell.getDamageHigh() * this.level);
+		}
+		
+		spellBook.put(type, spell);
 	}
 	
 	public boolean hasSpell(String type) {
@@ -146,7 +157,7 @@ public class MobileObject implements Serializable {
 		while (iterator.hasNext()) {
 			entry = (HashMap.Entry<String, Spell>) iterator.next();
 			currentSpell = (Spell) entry.getValue(); 
-			if (currentSpell.getHealHigh() > highestHealingSpell.getHealHigh()) {
+			if (currentSpell.getHealHigh() > highestHealingSpell.getHealHigh() && currentSpell.getDamageHigh() == 0) {
 				highestHealingSpell = currentSpell; 
 			}
 		}
@@ -165,9 +176,19 @@ public class MobileObject implements Serializable {
 		if (spell.getHealHigh() + spell.getHealBonus() > 0) {			
 			healOrDamage = new Random().nextInt(spell.getHealHigh() - spell.getHealLow() + 1) + spell.getHealLow() + spell.getHealBonus();
 			target.updateHitPoints(healOrDamage);
-		} else if (!this.isSaved(target, spell.getSavingThrow()) && spell.getDamageHigh() + spell.getDamageBonus() > 0) {			
-			healOrDamage = new Random().nextInt(spell.getDamageHigh() - spell.getDamageLow() + 1) + spell.getDamageLow() + spell.getDamageBonus();
-			target.updateHitPoints(-healOrDamage);
+			if (spell.getDamageHigh() + spell.getDamageBonus() > 0) {				
+				healOrDamage = new Random().nextInt(spell.getDamageHigh() - spell.getDamageLow() + 1) + spell.getDamageLow() + spell.getDamageBonus();
+				target.updateHitPoints(-healOrDamage);
+				healOrDamage = target.getMaxHitPoints() - healOrDamage;
+			}
+		} else if (spell.getDamageHigh() + spell.getDamageBonus() > 0) {
+			if (this.isSaved(target, spell.getSavingThrow())) {
+				healOrDamage = new Random().nextInt(Math.round(spell.getDamageHigh()/2) - Math.round(spell.getDamageLow()/2) + 1) + Math.round(spell.getDamageLow()/2) + Math.round(spell.getDamageBonus()/2);
+				target.updateHitPoints(-healOrDamage);
+			} else {
+				healOrDamage = new Random().nextInt((spell.getDamageHigh()) - spell.getDamageLow() + 1) + spell.getDamageLow() + spell.getDamageBonus();
+				target.updateHitPoints(-healOrDamage);
+			}
 		}
 		
 		//spellBook.remove(spell);

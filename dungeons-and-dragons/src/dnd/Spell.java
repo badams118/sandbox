@@ -79,6 +79,14 @@ public class Spell implements Serializable {
 		return this.damageHigh;
 	}
 	
+	public void setDamageLow(int damageLow) {
+		this.damageLow = damageLow;
+	}
+	
+	public void setDamageHigh(int damageHigh) {
+		this.damageHigh = damageHigh;
+	}
+	
 	public int getDamageBonus() {
 		return this.damageBonus;
 	}

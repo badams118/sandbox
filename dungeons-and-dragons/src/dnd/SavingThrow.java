@@ -13,6 +13,7 @@ public enum SavingThrow {
 	WAND,
 	BREATH_WEAPON,
 	SPELL,
+	SPECIAL,
 	NONE;
 	
 	public static boolean checkSavingThrow(MobileObject target, SavingThrow attack) {
@@ -125,7 +126,7 @@ public enum SavingThrow {
 				break;				
 			}
 			break;
-		case PALADIN:
+		case PALADIN: // +2 saving throws
 		case ANTI_PALADIN:
 		case RANGER:
 		case BARD:
