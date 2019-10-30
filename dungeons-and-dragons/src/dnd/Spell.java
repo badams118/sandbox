@@ -70,6 +70,14 @@ public class Spell implements Serializable {
 	public int getHealBonus() {
 		return this.healBonus;
 	}
+
+	public void setHealLow(int healLow) {
+		this.healLow = healLow;
+	}
+	
+	public void setHealHigh(int healHigh) {
+		this.healHigh = healHigh;
+	}
 	
 	public int getDamageLow() {
 		return this.damageLow;

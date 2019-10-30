@@ -43,6 +43,10 @@ public class Character extends MobileObject implements Serializable {
 		return this.race.toString();
 	}
 	
+	public int getHitDice() {
+		return super.getHitDice();
+	}
+	
 	public Weapon getWeapon() {
 		return this.weapon;
 	}
@@ -193,12 +197,12 @@ public class Character extends MobileObject implements Serializable {
 
 	public void combatAction(MobileObject attackTarget, MobileObject healTarget) {
 		Spell healSpell = this.getHighestHealingSpell();
-		Spell attackSpell = this.getHighestDamageSpell();
+		Spell attackSpell = this.getHighestDamageSpell(attackTarget);
 				
 		if (healSpell != null && healTarget != null && healTarget.getDamage() > 0) {
 			this.combatAction("cast " + this.getHighestHealingSpell(), healTarget);
 		} else if (attackSpell != null && attackTarget != null) {
-			this.combatAction("cast " + this.getHighestDamageSpell(), attackTarget);
+			this.combatAction("cast " + this.getHighestDamageSpell(attackTarget), attackTarget);
 		} else {
 			this.combatAction("melee", attackTarget);
 		}		

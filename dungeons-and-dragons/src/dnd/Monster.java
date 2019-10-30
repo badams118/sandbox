@@ -51,10 +51,13 @@ public class Monster extends MobileObject {
 		super.setSize(size);
 	}
 	
+	public int getHitDice() {
+		return this.hitDice;
+	}
 
 	public void combatAction(MobileObject target) {
 		if (this.hasSpell()) {
-			this.combatAction("cast " + this.getHighestDamageSpell(), target);			
+			this.combatAction("cast " + this.getHighestDamageSpell(target), target);			
 		} else {
 			this.combatAction("melee", target);
 		}

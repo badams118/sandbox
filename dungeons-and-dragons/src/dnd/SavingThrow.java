@@ -16,13 +16,13 @@ public enum SavingThrow {
 	SPECIAL,
 	NONE;
 	
-	public static boolean checkSavingThrow(MobileObject target, SavingThrow attack) {
+	public static boolean checkSavingThrow(MobileObject target, SavingThrow attack, int modifier) {
 		boolean isSaved = false;
 		
 		int level = target.getLevel();
 		MobileObjectClass mobileObjectClass = target.getMobileObjectClass();
 		
-		int roll = new Random().nextInt(20) + 1;
+		int roll = new Random().nextInt(20) + 1 + modifier;
 		
 		if (mobileObjectClass == MobileObjectClass.PALADIN || mobileObjectClass == MobileObjectClass.ANTI_PALADIN) {
 			roll = roll + 2;
